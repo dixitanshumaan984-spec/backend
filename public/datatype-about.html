@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Data Types in C</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f5f5f5;
+      color: #333;
+    }
+
+    header {
+      background: #1e3c72;
+      color: white;
+      padding: 15px;
+      text-align: center;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: auto;
+      background: white;
+      padding: 20px;
+    }
+
+    h1, h2 {
+      color: #1e3c72;
+    }
+
+    p {
+      line-height: 1.6;
+    }
+
+    /* Code Box */
+    pre {
+      background: #222;
+      color: #00ff88;
+      padding: 15px;
+      border-radius: 8px;
+      overflow-x: auto;
+    }
+
+    /* Output Box */
+    .output {
+      background: #eee;
+      padding: 10px;
+      border-radius: 8px;
+      margin-top: 10px;
+    }
+
+    /* Note Box */
+    .note {
+      background: #fff3cd;
+      padding: 10px;
+      border-left: 5px solid orange;
+      margin-top: 15px;
+      border-radius: 5px;
+    }
+
+    ul {
+      margin-left: 20px;
+    }
+
+    .back {
+      display: inline-block;
+      margin-top: 20px;
+      text-decoration: none;
+      color: #1e3c72;
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h1>Data Types in C</h1>
+</header>
+
+<div class="container">
+
+  <p>
+    Each variable in C has an associated data type. It specifies the type of data 
+    that the variable can store like integer, character, floating, double, etc.
+  </p>
+
+  <p>
+    C is a statically typed language where each variable's type must be specified 
+    at the time of declaration and once specified, it cannot be changed.
+  </p>
+
+  <h2>Types of Data Types in C</h2>
+  <ul>
+    <li><b>Basic Data Types:</b> int, float, double, char</li>
+    <li><b>Derived Data Types:</b> array, pointer, function</li>
+    <li><b>User Defined Data Types:</b> struct, union, enum</li>
+  </ul>
+
+  <h2>Example Program</h2>
+
+  <pre>
+#include &lt;stdio.h&gt;
+
+int main() {
+
+    // integer
+    int age = 20;
+
+    // floating-point
+    float height = 5.7;
+
+    // double-precision
+    double pi = 3.14159;
+
+    // character
+    char grade = 'A';
+
+    printf("Age: %d\n", age);
+    printf("Height: %.1f\n", height);
+    printf("Pi: %.5lf\n", pi);
+    printf("Grade: %c\n", grade);
+
+    return 0;
+}
+  </pre>
+
+  <h2>Output</h2>
+
+  <div class="output">
+    Age: 20 <br>
+    Height: 5.7 <br>
+    Pi: 3.14159 <br>
+    Grade: A
+  </div>
+
+  <div class="note">
+    <b>Note:</b> The exact size and range of C data types depend on the compiler 
+    and system architecture. The sizes mentioned are typical for most systems.
+  </div>
+
+  <h2>Integer Data Type</h2>
+
+  <ul>
+    <li>Stores whole numbers (positive, negative, or zero)</li>
+    <li>Declared using <b>int</b> keyword</li>
+    <li>Size: typically 4 bytes</li>
+    <li>Range: -2,147,483,648 to 2,147,483,647</li>
+    <li>Format specifier: %d</li>
+  </ul>
+
+  <a href="datatype.html" class="back">← Back to Data Types</a>
+
+</div>
+
+</body>
+</html>

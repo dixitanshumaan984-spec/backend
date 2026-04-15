@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Engineers Learning</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: "Segoe UI", sans-serif;
+  background: #f8f9fb;
+  color: #333;
+}
+
+/* NAVBAR */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 40px;
+  background: white;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+nav a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+}
+
+nav a:hover {
+  color: #4a6cf7;
+}
+
+.btn {
+  background: #4a6cf7;
+  color: white;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  border: none;
+}
+
+/* HERO */
+#home {
+  text-align: center;
+  padding: 80px 20px;
+}
+
+#home h2 {
+  font-size: 40px;
+}
+
+#home span {
+  color: #4a6cf7;
+}
+
+/* Welcome Animation */
+#welcomeText {
+  font-size: 22px;
+  color: #4a6cf7;
+  margin-bottom: 10px;
+  opacity: 0;
+  transform: translateY(-20px);
+  transition: all 0.8s ease;
+}
+
+#welcomeText.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* COURSES */
+#courses {
+  padding: 40px;
+  text-align: center;
+}
+
+.course-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 25px;
+}
+
+.course-card {
+  background: white;
+  border-radius: 12px;
+  width: 260px;
+  padding: 15px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  transition: 0.3s;
+}
+
+.course-card:hover {
+  transform: translateY(-10px) scale(1.03);
+}
+
+.course-card img {
+  width: 100%;
+  border-radius: 10px;
+}
+
+.rating {
+  color: gold;
+}
+
+/* CONTACT */
+#contact {
+  padding: 40px;
+  text-align: center;
+}
+
+.contact-container {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+.contact-info {
+  text-align: left;
+}
+
+form input, form textarea {
+  width: 80%;
+  max-width: 400px;
+  padding: 10px;
+  margin: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+#contact form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+footer {
+  text-align: center;
+  padding: 15px;
+  background: #222;
+  color: white;
+}
+
+/* Typing */
+#typing {
+  font-size: 18px;
+  margin-top: 10px;
+  color: #555;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h2>Engineers Learning</h2>
+  <nav>
+    <ul>
+      <li><a href="#home">Home</a></li>
+      <li><a href="#courses">Courses</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a id="dashboardLink">Dashboard</a></li>
+      <li><a href="login.html" id="loginLink">Login</a></li>
+      <li><a href="signup.html" id="signupLink">Sign Up</a></li>
+      <li><button class="btn" onclick="goToMyCourses()">My Courses</button></li>
+    </ul>
+  </nav>
+</header>
+
+<!-- HERO -->
+<section id="home">
+  <h3 id="welcomeText"></h3>
+  <h2>Learn Skills for <span>Future</span></h2>
+  <p id="typing"></p>
+</section>
+
+<!-- COURSES -->
+<section id="courses">
+  <h2>Our Courses</h2>
+  <div class="course-container">
+
+    <!-- Web -->
+    <div class="course-card">
+      <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085">
+      <h3>Web Development</h3>
+      <p>HTML, CSS, JS</p>
+      <div class="rating">★★★★★</div>
+      <button onclick="enrollAndGo('Web Development','webdev.html')">Enroll</button>
+    </div>
+
+    <!-- DSA -->
+    <div class="course-card">
+      <img src="https://images.unsplash.com/photo-1515879218367-8466d910aaa4">
+      <h3>Data Structures</h3>
+      <p>DSA + Algorithms</p>
+      <div class="rating">★★★★☆</div>
+      <button onclick="enrollAndGo('Data Structures','datastructures.html')">Enroll</button>
+    </div>
+
+    <!-- ML (PAID) -->
+    <div class="course-card">
+      <img src="https://images.unsplash.com/photo-1555949963-aa79dcee981c">
+      <h3>Machine Learning</h3>
+      <p>AI & ML</p>
+      <div class="rating">★★★★★</div>
+      <button onclick="goToPayment('Machine Learning')">Enroll</button>
+    </div>
+
+    <!-- C FREE -->
+    <div class="course-card">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/1/19/C_Logo.png">
+      <h3>C Programming</h3>
+      <p>FREE Course</p>
+      <div class="rating">★★★★☆</div>
+      <button onclick="enrollAndGo('C Programming','cprogramming.html')">Enroll</button>
+    </div>
+
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <h2>Contact Us</h2>
+
+  <div class="contact-container">
+    <div class="contact-info">
+      <h3>Get in Touch</h3>
+      <p>Email: Engineerlearning@gmail.com</p>
+      <p>Phone: +91 86588 71121</p>
+    </div>
+
+    <form id="contactForm">
+      <input type="text" id="name" placeholder="Your Name" required>
+      <input type="email" id="email" placeholder="Your Email" required>
+      <textarea id="message" placeholder="Your Message" required></textarea>
+      <button type="submit" class="btn">Send</button>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <p>© 2025 Engineers Learning</p>
+</footer>
+
+<!-- USER SCRIPT -->
+<script>
+const params = new URLSearchParams(window.location.search);
+const user = params.get("user");
+
+const dashboardLink = document.getElementById("dashboardLink");
+const loginLink = document.getElementById("loginLink");
+const signupLink = document.getElementById("signupLink");
+const welcomeText = document.getElementById("welcomeText");
+
+if (user) {
+  dashboardLink.href = "dashboard.html?user=" + user;
+
+  welcomeText.innerText = "Welcome, " + user;
+  setTimeout(() => {
+    welcomeText.classList.add("show");
+  }, 100);
+
+  loginLink.style.display = "none";
+  signupLink.style.display = "none";
+} else {
+  dashboardLink.href = "login.html";
+}
+</script>
+
+<!-- FUNCTIONS -->
+<script>
+function goToMyCourses() {
+  const username = new URLSearchParams(window.location.search).get("user");
+  window.location.href = `/mycourses.html?user=${username}`;
+}
+
+function enrollAndGo(courseName, page) {
+  const username = new URLSearchParams(window.location.search).get("user");
+
+  if (!username) {
+    alert("Please login first!");
+    return;
+  }
+
+  fetch("/enroll", {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({ username, course: courseName })
+  })
+  .then(res => res.json())
+  .then(data => {
+    alert(data.message);
+    window.location.href = page + "?user=" + username;
+  });
+}
+
+function goToPayment(courseName) {
+  const username = new URLSearchParams(window.location.search).get("user");
+
+  if (!username) {
+    alert("Please login first!");
+    return;
+  }
+
+  window.location.href = `/payment.html?user=${username}&course=${courseName}`;
+}
+</script>
+
+<!-- CONTACT -->
+<script>
+document.getElementById("contactForm").addEventListener("submit", async function(e){
+  e.preventDefault();
+
+  const res = await fetch("/contact", {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({
+      name: name.value,
+      email: email.value,
+      message: message.value
+    })
+  });
+
+  const data = await res.json();
+  alert(data.message);
+});
+</script>
+
+<!-- TYPING -->
+<script>
+const texts = [
+  "Build real projects and get certified",
+  "Learn AI/ML, Web Development and Data Structures"
+];
+
+let i=0,j=0,cur="",del=false;
+
+function typeEffect(){
+  const el=document.getElementById("typing");
+  if(!el) return;
+
+  if(!del && j<texts[i].length){ cur+=texts[i][j++]; }
+  else if(del && j>0){ cur=cur.slice(0,--j); }
+  else{ del=!del; if(!del) i=(i+1)%texts.length; }
+
+  el.innerHTML=cur;
+  setTimeout(typeEffect, del?40:80);
+}
+typeEffect();
+</script>
+
+</body>
+</html>

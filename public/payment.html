@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UPI Payment</title>
+
+<style>
+body {
+  font-family: Arial;
+  margin: 0;
+  background: #f5f5f5;
+  text-align: center;
+}
+
+.container {
+  background: white;
+  margin: 50px auto;
+  padding: 20px;
+  width: 90%;
+  max-width: 400px;
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+h2 {
+  color: #333;
+}
+
+.qr {
+  margin: 20px 0;
+}
+
+.qr img {
+  width: 220px;
+  border-radius: 10px;
+}
+
+.note {
+  font-size: 14px;
+  color: gray;
+}
+
+.warning {
+  color: red;
+  font-size: 14px;
+  margin-top: 10px;
+}
+
+button {
+  margin-top: 20px;
+  padding: 12px;
+  width: 100%;
+  background: #ff6b5c;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+  <h2 id="courseTitle">Pay ₹9</h2>
+
+  <p>Scan the QR code using any UPI app</p>
+
+  <div class="qr">
+    <img 
+  src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=upi://pay?pa=suchitrasahoo452@oksbi&pn=EngineersLearning&am=9&cu=INR" 
+  alt="UPI QR Code"
+/>
+  </div>
+
+  <p><b>UPI ID:</b> suchitrasahoo452@oksbi</p>
+
+  <p class="warning">⚠ Pay exactly ₹9 only</p>
+
+  <p class="note">
+    After payment, click below and enter transaction ID
+  </p>
+
+  <button onclick="goToTxn()">I Have Paid</button>
+
+</div>
+
+<script>
+const params = new URLSearchParams(window.location.search);
+const course = params.get("course");
+
+if (course) {
+  document.getElementById("courseTitle").innerText =
+    "Pay ₹9 for " + course;
+}
+
+function goToTxn() {
+  window.location.href = "transaction.html?course=" + encodeURIComponent(course);
+}
+</script>
+
+</body>
+</html>

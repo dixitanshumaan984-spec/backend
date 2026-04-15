@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Sign Up | Engineers Learning</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: "Segoe UI", sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: linear-gradient(-45deg, #1e3c72, #2a5298, #00c6ff);
+      color: white;
+    }
+
+    .container {
+      background: white;
+      color: black;
+      padding: 30px;
+      border-radius: 10px;
+      width: 320px;
+      text-align: center;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      background: #2a5298;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #1e3c72;
+    }
+
+    #message {
+      margin-top: 10px;
+      font-size: 14px;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="container">
+  <h2>Sign Up</h2>
+
+  <!-- STEP 1: Signup Form -->
+  <form id="signupForm">
+    <input type="text" name="username" placeholder="Enter Name" required>
+    <input type="email" name="email" id="email" placeholder="Enter Email" required>
+    <input type="password" name="password" placeholder="Enter Password" required>
+
+    <button type="submit">Send OTP</button>
+  </form>
+
+  <!-- STEP 2: OTP Verification -->
+  <form id="otpForm" style="display:none;">
+    <input type="number" id="otp" placeholder="Enter OTP" required>
+    <button type="submit">Verify OTP</button>
+  </form>
+
+  <p id="message"></p>
+</div>
+
+<script>
+  const signupForm = document.getElementById("signupForm");
+  const otpForm = document.getElementById("otpForm");
+  const message = document.getElementById("message");
+
+  let savedEmail = "";
+
+  // STEP 1: Send OTP
+  signupForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const formData = new FormData(signupForm);
+    savedEmail = formData.get("email");
+
+    try {
+      const res = await fetch("/signup", {
+        method: "POST",
+        body: new URLSearchParams(formData)
+      });
+
+      const data = await res.json(); // ✅ FIXED
+      message.innerText = data.message;
+
+      if (data.success) {
+        signupForm.style.display = "none";
+        otpForm.style.display = "block";
+      }
+
+    } catch (err) {
+      message.innerText = "⚠️ Server error. Try again.";
+    }
+  });
+
+  // STEP 2: Verify OTP
+  otpForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const otp = document.getElementById("otp").value;
+
+    try {
+      const res = await fetch("/verify-otp", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          email: savedEmail,
+          otp: otp
+        })
+      });
+
+      const data = await res.json(); // ✅ FIXED
+
+      if (data.success) {
+        message.innerText = "✅ Signup Successful! Redirecting...";
+
+        setTimeout(() => {
+          window.location.href = "login.html"; // ✅ REDIRECT WORKS NOW
+        }, 1500);
+      } else {
+        message.innerText = "❌ " + data.message;
+      }
+
+    } catch (err) {
+      message.innerText = "⚠️ Server error. Try again.";
+    }
+  });
+</script>
+
+</body>
+</html>

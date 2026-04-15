@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Data Types | C Programming</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: "Segoe UI", sans-serif;
+      color: white;
+
+      background: linear-gradient(-45deg, #1e3c72, #2a5298, #00c6ff);
+      background-size: 400% 400%;
+      animation: bgMove 10s ease infinite;
+      text-align: center;
+    }
+
+    @keyframes bgMove {
+      0% {background-position: 0% 50%;}
+      50% {background-position: 100% 50%;}
+      100% {background-position: 0% 50%;}
+    }
+
+    header {
+      padding: 20px;
+      background: rgba(0,0,0,0.4);
+    }
+
+    h1 {
+      margin: 0;
+    }
+
+    .container {
+      margin-top: 60px;
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      flex-wrap: wrap;
+    }
+
+    .card {
+      background: rgba(255,255,255,0.15);
+      backdrop-filter: blur(10px);
+      padding: 30px;
+      width: 200px;
+      border-radius: 15px;
+      cursor: pointer;
+      transition: 0.3s;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    }
+
+    .card:hover {
+      transform: translateY(-10px) scale(1.05);
+    }
+
+    .card img {
+      width: 80px;
+      margin-bottom: 10px;
+    }
+
+    a {
+      text-decoration: none;
+      color: white;
+    }
+
+    .back {
+      display: inline-block;
+      margin-top: 30px;
+      color: #ffd700;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h1>Data Types</h1>
+</header>
+
+<div class="container">
+
+  <!-- About -->
+  <a href="datatype-about.html">
+    <div class="card">
+      <img src="https://cdn-icons-png.flaticon.com/512/1828/1828817.png">
+      <h3>About</h3>
+      <p>Learn theory of data types</p>
+    </div>
+  </a>
+
+  <!-- Video -->
+  <a href="datatype-video.html">
+    <div class="card">
+      <img src="https://cdn-icons-png.flaticon.com/512/727/727245.png">
+      <h3>Video</h3>
+      <p>Watch explanation videos</p>
+    </div>
+  </a>
+
+  <!-- Quiz -->
+  <a href="datatype-quiz.html">
+    <div class="card">
+      <img src="https://cdn-icons-png.flaticon.com/512/942/942748.png">
+      <h3>Quiz</h3>
+      <p>Test your knowledge</p>
+    </div>
+  </a>
+
+</div>
+
+<a href="cprogramming.html" class="back">← Back to Course</a>
+
+</body>
+</html>
+
+<script>
+  // Check if video is completed
+  const videoStatus = localStorage.getItem("datatype_video");
+
+  if (videoStatus !== "completed") {
+    // Disable quiz if not completed
+    const quizLink = document.querySelector('a[href="datatype-quiz.html"]');
+    quizLink.style.pointerEvents = "none";
+    quizLink.style.opacity = "0.5";
+
+    alert("Please watch video first to unlock quiz");
+  }
+</script>

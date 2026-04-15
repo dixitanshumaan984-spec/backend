@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>My Courses</title>
+
+  <style>
+    body {
+      font-family: "Segoe UI", sans-serif;
+      margin: 0;
+      background: linear-gradient(135deg, #1e3c72, #2a5298);
+      color: white;
+      text-align: center;
+    }
+    h2 {
+      margin-top: 30px;
+      font-size: 28px;
+    }
+    .course-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      padding: 30px;
+    }
+    .course-card {
+      background: rgba(255,255,255,0.15);
+      backdrop-filter: blur(10px);
+      border-radius: 15px;
+      width: 220px;
+      padding: 20px;
+      cursor: pointer;
+      transition: 0.3s;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    }
+
+    .course-card:hover {
+      transform: scale(1.05);
+      background: rgba(255,255,255,0.25);
+    }
+
+    .empty {
+      margin-top: 40px;
+      font-size: 18px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h2>My Courses</h2>
+
+  <div class="course-container" id="courseList"></div>
+
+  <script>
+    const username = new URLSearchParams(window.location.search).get("user");
+
+    if (!username) {
+      alert("Please login first");
+      window.location.href = "/login.html";
+    }
+
+    // 🔗 Mapping course → page (FIXED & SAFE)
+    const coursePages = {
+      "c programming": "cprogramming.html",
+      "web development": "webdev.html",
+      "data structures": "datastructures.html",
+      "machine learning": "mlcourse.html"
+    };
+
+    fetch(`/my-courses?username=${username}`)
+    .then(res => res.json())
+    .then(data => {
+      console.log("Courses from DB:", data); // 🔥 DEBUG
+
+      const container = document.getElementById("courseList");
+
+      if (!data || data.length === 0) {
+        container.innerHTML = "<p class='empty'>No courses enrolled</p>";
+        return;
+      }
+
+      data.forEach(item => {
+        const card = document.createElement("div");
+        card.className = "course-card";
+        card.innerText = item.course;
+
+        // 🔥 Click → open course (FIXED)
+        card.onclick = () => {
+          const courseName = item.course.trim().toLowerCase(); // ✅ FIX
+          const page = coursePages[courseName];
+
+          if (page) {
+            window.location.href = page + "?user=" + username; // ✅ preserve user
+          } else {
+            alert("Course page not found: " + item.course);
+          }
+        };
+
+        container.appendChild(card);
+      });
+    })
+    .catch(err => {
+      console.error(err);
+      alert("Error loading courses");
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Machine Learning Course</title>
+
+<style>
+body {
+  font-family: Arial;
+  margin: 0;
+  background: #f5f5f5;
+}
+
+/* Header Tabs */
+.tabs {
+  display: flex;
+  justify-content: space-around;
+  background: white;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.tabs div {
+  font-size: 14px;
+  color: gray;
+}
+
+/* Banner */
+.banner img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+/* Info Grid */
+.info-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background: white;
+  text-align: center;
+}
+
+.info-box {
+  padding: 15px;
+  border: 1px solid #eee;
+}
+
+/* Section */
+.section {
+  background: white;
+  padding: 15px;
+  margin-top: 10px;
+}
+
+/* Features */
+.feature {
+  display: flex;
+  align-items: start;
+  margin: 10px 0;
+}
+
+.feature span {
+  color: green;
+  margin-right: 10px;
+}
+
+/* Stats */
+.stats {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 10px;
+}
+
+.stat-box {
+  background: white;
+  padding: 15px;
+  width: 30%;
+  text-align: center;
+  border-radius: 10px;
+}
+
+/* Offerings */
+.offer {
+  background: white;
+  padding: 12px;
+  margin: 10px 0;
+  border-radius: 8px;
+}
+
+/* FAQ */
+.faq {
+  background: white;
+  margin-top: 10px;
+  padding: 10px;
+}
+
+.faq-item {
+  border-bottom: 1px solid #ddd;
+  padding: 10px 0;
+  cursor: pointer;
+}
+
+.faq-answer {
+  display: none;
+  font-size: 14px;
+  color: gray;
+}
+
+/* Sticky Button */
+.buy-btn {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background: #ff6b5c;
+  color: white;
+  text-align: center;
+  padding: 15px;
+  font-size: 18px;
+}
+</style>
+
+</head>
+
+<body>
+
+<!-- Tabs -->
+<div class="tabs">
+  <div>Overview</div>
+  <div>Curriculum</div>
+  <div>Mentors</div>
+  <div>Plans</div>
+</div>
+
+<!-- Banner -->
+<div class="banner">
+  <img src="https://images.unsplash.com/photo-1555949963-aa79dcee981c">
+</div>
+
+<!-- Info Grid -->
+<div class="info-grid">
+  <div class="info-box"><b>8 Months</b><br>Duration</div>
+  <div class="info-box"><b>Live</b><br>Mode</div>
+  <div class="info-box"><b>Hinglish</b><br>Language</div>
+  <div class="info-box"><b>₹9</b><br>Price</div>
+</div>
+
+<!-- About Section -->
+<div class="section">
+  <h3>About Machine Learning Course</h3>
+  <p>Learn ML, AI, neural networks and real-world applications.</p>
+
+  <div class="feature"><span>✔</span> Industry Expert Sessions</div>
+  <div class="feature"><span>✔</span> Project Portfolio</div>
+  <div class="feature"><span>✔</span> Career Assistance</div>
+  <div class="feature"><span>✔</span> Peer Network</div>
+</div>
+
+<!-- Image -->
+<div class="section">
+  <img src="https://images.unsplash.com/photo-1531746790731-6c087fecd65a" width="100%" style="border-radius:10px;">
+</div>
+
+<!-- Stats -->
+<div class="stats">
+  <div class="stat-box">350+<br>Hiring</div>
+  <div class="stat-box">120+<br>Careers</div>
+  <div class="stat-box">6 LPA<br>Package</div>
+</div>
+
+<!-- Offerings -->
+<div class="section">
+  <h3>Course Offerings</h3>
+
+  <div class="offer">📘 Industry Curriculum</div>
+  <div class="offer">📚 Learning Content</div>
+  <div class="offer">📅 Weekend Live Classes</div>
+  <div class="offer">🚀 Capstone Project</div>
+</div>
+
+<!-- FAQ -->
+<div class="faq">
+  <h3>FAQs</h3>
+
+  <div class="faq-item" onclick="toggleFAQ(this)">
+    What is this course about?
+    <div class="faq-answer">This course teaches Machine Learning, AI, and real-world applications.</div>
+  </div>
+
+  <div class="faq-item" onclick="toggleFAQ(this)">
+    Is it beginner friendly?
+    <div class="faq-answer">Yes, it starts from basics and gradually increases difficulty.</div>
+  </div>
+
+  <div class="faq-item" onclick="toggleFAQ(this)">
+    What are prerequisites?
+    <div class="faq-answer">Basic programming knowledge (Python preferred).</div>
+  </div>
+
+  <div class="faq-item" onclick="toggleFAQ(this)">
+    Will I get certificate?
+    <div class="faq-answer">Yes, after completing the course.</div>
+  </div>
+
+</div>
+
+<!-- Buy Button -->
+<div class="buy-btn" onclick="goToEnroll()">
+  Buy Now
+</div>
+
+<script>
+function goToEnroll() {
+  const course = "Machine Learning";
+  window.location.href = "enroll.html?course=" + encodeURIComponent(course);
+}
+</script>
+
+<script>
+function toggleFAQ(element) {
+  let answer = element.querySelector(".faq-answer");
+  answer.style.display = answer.style.display === "block" ? "none" : "block";
+}
+</script>
+
+</body>
+</html>

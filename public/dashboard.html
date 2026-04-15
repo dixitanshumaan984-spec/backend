@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: "Segoe UI", sans-serif;
+      color: white;
+      text-align: center;
+
+      background: linear-gradient(-45deg, #1e3c72, #2a5298, #00c6ff);
+      background-size: 400% 400%;
+      animation: bgMove 10s ease infinite;
+    }
+
+    @keyframes bgMove {
+      0% {background-position: 0% 50%;}
+      50% {background-position: 100% 50%;}
+      100% {background-position: 0% 50%;}
+    }
+
+    header {
+      padding: 20px;
+      background: rgba(0,0,0,0.4);
+    }
+
+    .card {
+      background: rgba(255,255,255,0.15);
+      margin: 20px auto;
+      padding: 20px;
+      width: 300px;
+      border-radius: 15px;
+      backdrop-filter: blur(10px);
+    }
+
+    .progress-bar {
+      width: 100%;
+      background: #ccc;
+      border-radius: 10px;
+      overflow: hidden;
+      margin-top: 10px;
+    }
+
+    .progress-fill {
+      height: 20px;
+      background: #ffd700;
+      width: 0%;
+    }
+
+    a {
+      color: #ffd700;
+      text-decoration: none;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h1 id="welcome"></h1>
+</header>
+
+<div class="card">
+  <h2>Course Progress</h2>
+  <div class="progress-bar">
+    <div class="progress-fill" id="progressFill"></div>
+  </div>
+  <p id="progressText"></p>
+</div>
+
+<div class="card">
+  <h2>Courses</h2>
+  <a href="cprogramming.html">Go to C Programming</a>
+</div>
+
+</body>
+
+<script>
+  // Get username from URL
+  const params = new URLSearchParams(window.location.search);
+  const user = params.get("user");
+
+  document.getElementById("welcome").innerText = "Welcome " + user;
+
+  // Progress calculation
+  let progress = 0;
+
+  if (localStorage.getItem("datatype_video") === "completed") {
+    progress += 20;
+  }
+
+  // Update UI
+  document.getElementById("progressFill").style.width = progress + "%";
+  document.getElementById("progressText").innerText = progress + "% Completed";
+</script>
+
+</html>

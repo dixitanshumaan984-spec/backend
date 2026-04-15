@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Data Types Quiz</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background: #f5f5f5;
+    }
+
+    header {
+      background: #1e3c72;
+      color: white;
+      padding: 15px;
+      text-align: center;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: auto;
+      padding: 20px;
+    }
+
+    .question {
+      background: white;
+      padding: 15px;
+      margin-bottom: 15px;
+      border-radius: 8px;
+    }
+
+    .option {
+      display: block;
+      margin: 8px 0;
+      padding: 8px;
+      background: #eee;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .option:hover {
+      background: #ddd;
+    }
+
+    button {
+      padding: 10px 15px;
+      background: #1e3c72;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    #result {
+      font-size: 20px;
+      margin-top: 20px;
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h1>Data Types Quiz</h1>
+</header>
+
+<div class="container">
+
+  <form method="POST" action="/submit-quiz">
+
+    <!-- Q1 -->
+    <div class="question">
+      <p>1. Which data type is used to store integers?</p>
+      <label class="option"><input type="radio" name="q1" value="a"> float</label>
+      <label class="option"><input type="radio" name="q1" value="b"> int</label>
+      <label class="option"><input type="radio" name="q1" value="c"> char</label>
+    </div>
+
+    <!-- Q2 -->
+    <div class="question">
+      <p>2. Which is used for decimal values?</p>
+      <label class="option"><input type="radio" name="q2" value="a"> int</label>
+      <label class="option"><input type="radio" name="q2" value="b"> float</label>
+      <label class="option"><input type="radio" name="q2" value="c"> char</label>
+    </div>
+
+    <!-- Q3 -->
+    <div class="question">
+      <p>3. Size of int (typically)?</p>
+      <label class="option"><input type="radio" name="q3" value="a"> 2 bytes</label>
+      <label class="option"><input type="radio" name="q3" value="b"> 4 bytes</label>
+      <label class="option"><input type="radio" name="q3" value="c"> 8 bytes</label>
+    </div>
+
+    <!-- Q4 -->
+    <div class="question">
+      <p>4. Which stores a single character?</p>
+      <label class="option"><input type="radio" name="q4" value="a"> char</label>
+      <label class="option"><input type="radio" name="q4" value="b"> int</label>
+      <label class="option"><input type="radio" name="q4" value="c"> float</label>
+    </div>
+
+    <!-- Q5 -->
+    <div class="question">
+      <p>5. Which is double precision?</p>
+      <label class="option"><input type="radio" name="q5" value="a"> float</label>
+      <label class="option"><input type="radio" name="q5" value="b"> double</label>
+      <label class="option"><input type="radio" name="q5" value="c"> int</label>
+    </div>
+
+    <!-- Q6 -->
+    <div class="question">
+      <p>6. Format specifier for int?</p>
+      <label class="option"><input type="radio" name="q6" value="a"> %f</label>
+      <label class="option"><input type="radio" name="q6" value="b"> %d</label>
+      <label class="option"><input type="radio" name="q6" value="c"> %c</label>
+    </div>
+
+    <!-- Q7 -->
+    <div class="question">
+      <p>7. Which is NOT a basic data type?</p>
+      <label class="option"><input type="radio" name="q7" value="a"> int</label>
+      <label class="option"><input type="radio" name="q7" value="b"> array</label>
+      <label class="option"><input type="radio" name="q7" value="c"> float</label>
+    </div>
+
+    <!-- Q8 -->
+    <div class="question">
+      <p>8. Which keyword is used for character?</p>
+      <label class="option"><input type="radio" name="q8" value="a"> char</label>
+      <label class="option"><input type="radio" name="q8" value="b"> int</label>
+      <label class="option"><input type="radio" name="q8" value="c"> float</label>
+    </div>
+
+    <!-- Q9 -->
+    <div class="question">
+      <p>9. C is a ____ typed language.</p>
+      <label class="option"><input type="radio" name="q9" value="a"> dynamically</label>
+      <label class="option"><input type="radio" name="q9" value="b"> statically</label>
+      <label class="option"><input type="radio" name="q9" value="c"> loosely</label>
+    </div>
+
+    <!-- Q10 -->
+    <div class="question">
+      <p>10. Which data type stores large decimal numbers?</p>
+      <label class="option"><input type="radio" name="q10" value="a"> float</label>
+      <label class="option"><input type="radio" name="q10" value="b"> double</label>
+      <label class="option"><input type="radio" name="q10" value="c"> char</label>
+    </div>
+
+    <button type="button" onclick="checkAnswers()">Submit</button>
+
+  </form>
+
+  <div id="result"></div>
+
+</div>
+
+<script>
+function checkAnswers() {
+  let score = 0;
+
+  const answers = {
+    q1: "b",
+    q2: "b",
+    q3: "b",
+    q4: "a",
+    q5: "b",
+    q6: "b",
+    q7: "b",
+    q8: "a",
+    q9: "b",
+    q10: "b"
+  };
+
+  for (let q in answers) {
+    let options = document.querySelectorAll(`input[name="${q}"]`);
+
+    options.forEach(option => {
+      let label = option.parentElement;
+
+      // Reset colors
+      label.style.background = "#eee";
+
+      // Correct answer → GREEN
+      if (option.value === answers[q]) {
+        label.style.background = "#a5d6a7"; // green
+      }
+
+      // User selected wrong → RED
+      if (option.checked && option.value !== answers[q]) {
+        label.style.background = "#ef9a9a"; // red
+      }
+    });
+
+    let selected = document.querySelector(`input[name="${q}"]:checked`);
+    if (selected && selected.value === answers[q]) {
+      score++;
+    }
+  }
+
+  document.getElementById("result").innerHTML =
+    "Your Score: " + score + "/10";
+}
+</script>
+
+</body>
+</html>
