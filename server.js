@@ -45,6 +45,14 @@ const paymentSchema = new mongoose.Schema({
 const Payment = mongoose.model("Payment", paymentSchema);
 
 const PORT = process.env.PORT || 3000;
+const contactSchema = new mongoose.Schema({
+  name: String,
+  email: String,
+  message: String,
+  date: { type: Date, default: Date.now }
+});
+
+const Contact = mongoose.model("Contact", contactSchema);
 
 // Middleware
 app.use(express.urlencoded({ extended: true }));
@@ -155,8 +163,9 @@ app.post("/submit-quiz", (req, res) => {
 });
 
 // CONTACT
-app.post("/contact", (req, res) => {
-  console.log(req.body);
+app.post("/contact", async (req, res) => {
+  const { name, email, message } = req.body;
+  await new Contact({ name, email, message }).save();
   res.json({ message: "Response recorded" });
 });
 
