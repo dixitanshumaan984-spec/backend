@@ -179,14 +179,12 @@ footer {
   </nav>
 </header>
 
-<!-- HERO -->
 <section id="home">
   <h3 id="welcomeText"></h3>
   <h2>Learn Skills for <span>Future</span></h2>
   <p id="typing"></p>
 </section>
 
-<!-- COURSES -->
 <section id="courses">
   <h2>Our Courses</h2>
   <div class="course-container">
@@ -197,7 +195,8 @@ footer {
       <h3>Web Development</h3>
       <p>HTML, CSS, JS</p>
       <div class="rating">★★★★★</div>
-      <button onclick="enrollAndGo('Web Development','webdev.html')">Enroll</button>
+      <!-- ✅ FIXED -->
+      <button onclick="goToCourse('webdev.html')">Enroll</button>
     </div>
 
     <!-- DSA -->
@@ -206,16 +205,17 @@ footer {
       <h3>Data Structures</h3>
       <p>DSA + Algorithms</p>
       <div class="rating">★★★★☆</div>
-      <button onclick="enrollAndGo('Data Structures','datastructures.html')">Enroll</button>
+      <!-- ✅ FIXED -->
+      <button onclick="goToCourse('datastructures.html')">Enroll</button>
     </div>
 
-    <!-- ML (PAID) -->
+    <!-- ML -->
     <div class="course-card">
       <img src="https://images.unsplash.com/photo-1555949963-aa79dcee981c">
       <h3>Machine Learning</h3>
       <p>AI & ML</p>
       <div class="rating">★★★★★</div>
-      <button onclick="goToPayment('Machine Learning')">Enroll</button>
+      <button onclick="goToCourse('ml.html')">Enroll</button>
     </div>
 
     <!-- C FREE -->
@@ -230,7 +230,6 @@ footer {
   </div>
 </section>
 
-<!-- CONTACT -->
 <section id="contact">
   <h2>Contact Us</h2>
 
@@ -254,7 +253,6 @@ footer {
   <p>© 2025 Engineers Learning</p>
 </footer>
 
-<!-- USER SCRIPT -->
 <script>
 const params = new URLSearchParams(window.location.search);
 const user = params.get("user");
@@ -279,8 +277,18 @@ if (user) {
 }
 </script>
 
-<!-- FUNCTIONS -->
 <script>
+function goToCourse(page) {
+  const username = new URLSearchParams(window.location.search).get("user");
+
+  if (!username) {
+    alert("Please login first!");
+    return;
+  }
+
+  window.location.href = page + "?user=" + username;
+}
+
 function goToMyCourses() {
   const username = new URLSearchParams(window.location.search).get("user");
   window.location.href = `/mycourses.html?user=${username}`;
@@ -305,20 +313,8 @@ function enrollAndGo(courseName, page) {
     window.location.href = page + "?user=" + username;
   });
 }
-
-function goToPayment(courseName) {
-  const username = new URLSearchParams(window.location.search).get("user");
-
-  if (!username) {
-    alert("Please login first!");
-    return;
-  }
-
-  window.location.href = `/payment.html?user=${username}&course=${courseName}`;
-}
 </script>
 
-<!-- CONTACT -->
 <script>
 document.getElementById("contactForm").addEventListener("submit", async function(e){
   e.preventDefault();
@@ -338,7 +334,6 @@ document.getElementById("contactForm").addEventListener("submit", async function
 });
 </script>
 
-<!-- TYPING -->
 <script>
 const texts = [
   "Build real projects and get certified",
