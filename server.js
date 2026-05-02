@@ -2,18 +2,11 @@ const express = require("express");
 const path = require("path");
 const mongoose = require("mongoose");
 const app = express();
-const nodemailer = require("nodemailer");
+const { Resend } = require("resend");
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 // Nodemailer setup using Gmail App Password
-const transporter = nodemailer.createTransport({
-  host: "smtp.gmail.com",
-  port: 587,
-  secure: false,
-  auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS,
-  },
-});
+
 
 function generateOTP() {
   return Math.floor(100000 + Math.random() * 900000);
@@ -99,12 +92,12 @@ app.post("/signup", async (req, res) => {
       password
     };
 
-    await transporter.sendMail({
-      from: "dixitanshumaan984@gmail.com",
-      to: email,
-      subject: "Your Signup OTP",
-      text: `Your OTP is: ${otp}`
-    });
+    await resend.emails.send({
+  from: "onboarding@resend.dev",
+  to: email,
+  subject: "Your Signup OTP",
+  text: `Your OTP is: ${otp}`
+});
 
     res.json({ success: true, message: "OTP sent" }); // ✅ FIXED
 
@@ -228,8 +221,8 @@ app.post("/admin/approve/:id", async (req, res) => {
     }).save();
   }
 
-  await transporter.sendMail({
-    from: "dixitanshumaan984@gmail.com",
+  await resend.emails.send({
+    from: "onboarding@resend.dev",
     to: payment.email,
     subject: "Payment Approved",
     text: "Your payment has been approved\nYou are now enrolled successfully!\nThank you for choosing our platform."
