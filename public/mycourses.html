@@ -2,108 +2,296 @@
 <html>
 <head>
   <title>My Courses</title>
-
   <style>
+    * { box-sizing: border-box; }
     body {
       font-family: "Segoe UI", sans-serif;
       margin: 0;
-      background: linear-gradient(135deg, #1e3c72, #2a5298);
-      color: white;
-      text-align: center;
+      background: #f8f9fb;
+      color: #333;
     }
-    h2 {
-      margin-top: 30px;
-      font-size: 28px;
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 40px;
+      background: white;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
     }
-    .course-container {
+
+    header h2 { margin: 0; }
+
+    .page-wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+
+    .top-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 30px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .top-bar h2 {
+      font-size: 26px;
+      margin: 0;
+    }
+
+    .tabs {
+      display: flex;
+      gap: 4px;
+      background: #e9ecef;
+      border-radius: 10px;
+      padding: 4px;
+    }
+
+    .tab {
+      padding: 8px 24px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      border: none;
+      background: transparent;
+      color: #666;
+      transition: 0.2s;
+    }
+
+    .tab.active {
+      background: white;
+      color: #333;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+    }
+
+    .course-grid {
       display: flex;
       flex-wrap: wrap;
-      justify-content: center;
-      gap: 20px;
-      padding: 30px;
+      gap: 24px;
+      justify-content: flex-start;
     }
+
     .course-card {
-      background: rgba(255,255,255,0.15);
-      backdrop-filter: blur(10px);
-      border-radius: 15px;
-      width: 220px;
-      padding: 20px;
-      cursor: pointer;
+      background: white;
+      border-radius: 14px;
+      width: 260px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+      overflow: hidden;
       transition: 0.3s;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
     }
 
     .course-card:hover {
-      transform: scale(1.05);
-      background: rgba(255,255,255,0.25);
+      transform: translateY(-6px);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+    }
+
+    .course-card img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+    }
+
+    .card-body {
+      padding: 14px 16px 16px;
+    }
+
+    .badge {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: 99px;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .badge.free {
+      background: #e6f4ea;
+      color: #2e7d32;
+    }
+
+    .badge.paid {
+      background: #e3f0ff;
+      color: #1565c0;
+    }
+
+    .card-title {
+      font-size: 16px;
+      font-weight: 600;
+      margin: 0 0 4px;
+    }
+
+    .card-desc {
+      font-size: 13px;
+      color: #777;
+      margin: 0 0 14px;
+    }
+
+    .rating {
+      color: gold;
+      font-size: 13px;
+      margin-bottom: 12px;
+    }
+
+    .continue-btn {
+      width: 100%;
+      padding: 9px;
+      border-radius: 8px;
+      border: 1.5px solid #4a6cf7;
+      background: transparent;
+      color: #4a6cf7;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .continue-btn:hover {
+      background: #4a6cf7;
+      color: white;
     }
 
     .empty {
+      text-align: center;
+      color: #999;
+      font-size: 16px;
       margin-top: 40px;
-      font-size: 18px;
+      width: 100%;
     }
   </style>
 </head>
 
 <body>
 
-  <h2>My Courses</h2>
+<header>
+  <h2>Engineers Learning</h2>
+</header>
 
-  <div class="course-container" id="courseList"></div>
+<div class="page-wrap">
+  <div class="top-bar">
+    <h2>My Courses</h2>
+    <div class="tabs">
+      <button class="tab active" onclick="filterCourses('free', this)">Free</button>
+      <button class="tab" onclick="filterCourses('paid', this)">Paid</button>
+    </div>
+  </div>
 
-  <script>
-    const username = new URLSearchParams(window.location.search).get("user");
+  <div class="course-grid" id="courseList"></div>
+</div>
 
-    if (!username) {
-      alert("Please login first");
-      window.location.href = "/login.html";
+<script>
+  const username = new URLSearchParams(window.location.search).get("user");
+
+  if (!username) {
+    alert("Please login first");
+    window.location.href = "/login.html";
+  }
+
+  const coursePages = {
+    "c programming": "cprogramming.html",
+    "web development": "webdev.html",
+    "data structures": "datastructures.html",
+    "machine learning": "mlcourse.html"
+  };
+
+  const courseData = {
+    "c programming": {
+      type: "free",
+      image: "https://upload.wikimedia.org/wikipedia/commons/1/19/C_Logo.png",
+      desc: "FREE Course",
+      rating: "★★★★☆"
+    },
+    "web development": {
+      type: "paid",
+      image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085",
+      desc: "HTML, CSS, JS",
+      rating: "★★★★★"
+    },
+    "data structures": {
+      type: "paid",
+      image: "https://images.unsplash.com/photo-1515879218367-8466d910aaa4",
+      desc: "DSA + Algorithms",
+      rating: "★★★★☆"
+    },
+    "machine learning": {
+      type: "paid",
+      image: "https://images.unsplash.com/photo-1555949963-aa79dcee981c",
+      desc: "AI & ML",
+      rating: "★★★★★"
+    }
+  };
+
+  let allCourses = [];
+  let currentFilter = "free";
+
+  fetch(`/my-courses?username=${username}`)
+  .then(res => res.json())
+  .then(data => {
+    allCourses = data || [];
+    renderCourses(currentFilter);
+  })
+  .catch(err => {
+    console.error(err);
+    alert("Error loading courses");
+  });
+
+  function renderCourses(filter) {
+    const container = document.getElementById("courseList");
+    container.innerHTML = "";
+
+    const filtered = allCourses.filter(item => {
+      const key = item.course.trim().toLowerCase();
+      const info = courseData[key];
+      return info && info.type === filter;
+    });
+
+    if (filtered.length === 0) {
+      container.innerHTML = `<p class='empty'>No ${filter} courses enrolled</p>`;
+      return;
     }
 
-    // 🔗 Mapping course → page (FIXED & SAFE)
-    const coursePages = {
-      "c programming": "cprogramming.html",
-      "web development": "webdev.html",
-      "data structures": "datastructures.html",
-      "machine learning": "mlcourse.html"
-    };
+    filtered.forEach(item => {
+      const key = item.course.trim().toLowerCase();
+      const info = courseData[key];
+      const page = coursePages[key];
 
-    fetch(`/my-courses?username=${username}`)
-    .then(res => res.json())
-    .then(data => {
-      console.log("Courses from DB:", data); // 🔥 DEBUG
+      const card = document.createElement("div");
+      card.className = "course-card";
+      card.innerHTML = `
+        <img src="${info.image}" alt="${item.course}">
+        <div class="card-body">
+          <span class="badge ${info.type}">${info.type === 'free' ? 'Free' : 'Paid'}</span>
+          <p class="card-title">${item.course}</p>
+          <p class="card-desc">${info.desc}</p>
+          <div class="rating">${info.rating}</div>
+          <button class="continue-btn">Continue Learning →</button>
+        </div>
+      `;
 
-      const container = document.getElementById("courseList");
+      card.querySelector(".continue-btn").onclick = () => {
+        if (page) {
+          window.location.href = page + "?user=" + username;
+        } else {
+          alert("Course page not found: " + item.course);
+        }
+      };
 
-      if (!data || data.length === 0) {
-        container.innerHTML = "<p class='empty'>No courses enrolled</p>";
-        return;
-      }
-
-      data.forEach(item => {
-        const card = document.createElement("div");
-        card.className = "course-card";
-        card.innerText = item.course;
-
-        // 🔥 Click → open course (FIXED)
-        card.onclick = () => {
-          const courseName = item.course.trim().toLowerCase(); // ✅ FIX
-          const page = coursePages[courseName];
-
-          if (page) {
-            window.location.href = page + "?user=" + username; // ✅ preserve user
-          } else {
-            alert("Course page not found: " + item.course);
-          }
-        };
-
-        container.appendChild(card);
-      });
-    })
-    .catch(err => {
-      console.error(err);
-      alert("Error loading courses");
+      container.appendChild(card);
     });
-  </script>
+  }
+
+  function filterCourses(type, btn) {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    btn.classList.add('active');
+    currentFilter = type;
+    renderCourses(type);
+  }
+</script>
 
 </body>
 </html>
