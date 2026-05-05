@@ -1,169 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Engineers Learning</title>
-
-<style>
-body {
-  margin: 0;
-  font-family: "Segoe UI", sans-serif;
-  background: #f8f9fb;
-  color: #333;
-}
-
-/* NAVBAR */
-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 15px 40px;
-  background: white;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-}
-
-nav ul {
-  list-style: none;
-  display: flex;
-  gap: 20px;
-  align-items: center;
-}
-
-nav a {
-  text-decoration: none;
-  color: #333;
-  font-weight: 500;
-}
-
-nav a:hover {
-  color: #4a6cf7;
-}
-
-.btn {
-  background: #4a6cf7;
-  color: white;
-  padding: 8px 14px;
-  border-radius: 6px;
-  cursor: pointer;
-  border: none;
-}
-
-/* HERO */
-#home {
-  text-align: center;
-  padding: 80px 20px;
-}
-
-#home h2 {
-  font-size: 40px;
-}
-
-#home span {
-  color: #4a6cf7;
-}
-
-/* Welcome Animation */
-#welcomeText {
-  font-size: 22px;
-  color: #4a6cf7;
-  margin-bottom: 10px;
-  opacity: 0;
-  transform: translateY(-20px);
-  transition: all 0.8s ease;
-}
-
-#welcomeText.show {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* COURSES */
-#courses {
-  padding: 40px;
-  text-align: center;
-}
-
-.course-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 25px;
-}
-
-.course-card {
-  background: white;
-  border-radius: 12px;
-  width: 260px;
-  padding: 15px;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-  transition: 0.3s;
-}
-
-.course-card:hover {
-  transform: translateY(-10px) scale(1.03);
-}
-
-.course-card img {
-  width: 100%;
-  border-radius: 10px;
-}
-
-.rating {
-  color: gold;
-}
-
-/* CONTACT */
-#contact {
-  padding: 40px;
-  text-align: center;
-}
-
-.contact-container {
-  display: flex;
-  justify-content: center;
-  gap: 40px;
-  flex-wrap: wrap;
-  margin-top: 20px;
-}
-
-.contact-info {
-  text-align: left;
-}
-
-form input, form textarea {
-  width: 80%;
-  max-width: 400px;
-  padding: 10px;
-  margin: 10px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-}
-
-#contact form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-footer {
-  text-align: center;
-  padding: 15px;
-  background: #222;
-  color: white;
-}
-
-/* Typing */
-#typing {
-  font-size: 18px;
-  margin-top: 10px;
-  color: #555;
-}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Engineers Learning</title>
+  <link rel="stylesheet" href="index.css">
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500&display=swap" rel="stylesheet">
 </head>
 
 <body>
-
 <header>
   <h2>Engineers Learning</h2>
   <nav>
@@ -181,35 +26,123 @@ footer {
 
 <section id="home">
   <h3 id="welcomeText"></h3>
-  <h2>Learn Skills for <span>Future</span></h2>
+
+  <!-- HERO BANNER -->
+  <div class="hero-banner">
+
+    <!-- LEFT SIDE -->
+    <div class="hero-left">
+
+      <!-- Badge: EL initials box + PLUS tag (no image) -->
+      <div class="hero-badge">
+        <div class="el-badge">EL</div>
+        <span class="hero-badge-text">PLUS</span>
+      </div>
+
+      <h1 class="hero-title">Achieve your career goals<br>with <span class="hero-highlight">Engineers Learning</span></h1>
+      <p class="hero-subtitle">Master real-world skills with hands-on projects from top instructors.</p>
+      <p class="hero-price">100% Free to start &middot; No credit card required</p>
+
+      <button class="hero-btn" onclick="document.getElementById('courses').scrollIntoView({behavior:'smooth'})">
+        EXPLORE
+      </button>
+
+      <p class="hero-note">or unlock premium courses at <strong>₹499/month</strong> with money-back guarantee</p>
+    </div>
+
+    <!-- RIGHT SIDE: Pure SVG + floating cards (zero images) -->
+    <div class="hero-right">
+      <div class="hero-illustration">
+
+        <!-- Floating card top-left -->
+        <div class="float-card card1">
+          <span class="card-icon">🎓</span>
+          <div>
+            <strong>500+</strong>
+            <p>Students</p>
+          </div>
+        </div>
+
+        <!-- SVG Illustration -->
+        <svg width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="100" cy="100" r="90" fill="#e8f0fe"/>
+          <rect x="55" y="65" width="40" height="55" rx="4" fill="#4a6cf7" opacity="0.9"/>
+          <rect x="100" y="65" width="40" height="55" rx="4" fill="#3358e8" opacity="0.9"/>
+          <line x1="97" y1="65" x2="100" y2="120" stroke="white" stroke-width="2"/>
+          <line x1="62" y1="80" x2="88" y2="80" stroke="white" stroke-width="2" stroke-linecap="round"/>
+          <line x1="62" y1="88" x2="88" y2="88" stroke="white" stroke-width="2" stroke-linecap="round"/>
+          <line x1="62" y1="96" x2="80" y2="96" stroke="white" stroke-width="2" stroke-linecap="round"/>
+          <line x1="107" y1="80" x2="133" y2="80" stroke="white" stroke-width="2" stroke-linecap="round"/>
+          <line x1="107" y1="88" x2="133" y2="88" stroke="white" stroke-width="2" stroke-linecap="round"/>
+          <line x1="107" y1="96" x2="125" y2="96" stroke="white" stroke-width="2" stroke-linecap="round"/>
+          <polygon points="100,42 130,58 100,58 70,58" fill="#1a1a2e"/>
+          <rect x="94" y="55" width="12" height="12" rx="2" fill="#1a1a2e"/>
+          <text x="148" y="75" font-size="14" fill="#f5c518">★</text>
+          <text x="38" y="145" font-size="10" fill="#4a6cf7">★</text>
+          <text x="155" y="145" font-size="10" fill="#4a6cf7">★</text>
+          <text x="58" y="158" font-size="18" font-weight="bold" fill="#4a6cf7" font-family="monospace">&lt;/&gt;</text>
+          <circle cx="150" cy="110" r="5" fill="#4a6cf7" opacity="0.4"/>
+          <circle cx="40" cy="90" r="4" fill="#4a6cf7" opacity="0.3"/>
+          <circle cx="160" cy="160" r="6" fill="#3358e8" opacity="0.25"/>
+        </svg>
+
+        <!-- Floating card bottom-right -->
+        <div class="float-card card2">
+          <span class="card-icon">⚡</span>
+          <div>
+            <strong>4.8★</strong>
+            <p>Rating</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- STATS ROW -->
+  <div class="hero-stats">
+    <div class="stat"><strong>500+</strong><span>Students</span></div>
+    <div class="stat"><strong>10+</strong><span>Courses</span></div>
+    <div class="stat"><strong>4.8★</strong><span>Rating</span></div>
+    <div class="stat"><strong>100%</strong><span>Free Access</span></div>
+  </div>
+
   <p id="typing"></p>
+
+  <!-- PARTNERS SECTION -->
+  <div class="partners-section">
+    <p class="partners-title">Learn from <strong>100+ top instructors</strong> and industry experts</p>
+    <div class="partners-grid">
+      <img src="images/photo1.jpg" alt="Partner 1" class="partner-img">
+      <img src="images/photo2.jpg" alt="Partner 2" class="partner-img">
+      <img src="images/photo3.jpg" alt="Partner 3" class="partner-img">
+      <img src="images/photo4.jpg" alt="Partner 4" class="partner-img">
+      <img src="images/photo5.jpg" alt="Partner 5" class="partner-img">
+    </div>
+  </div>
+
 </section>
 
 <section id="courses">
   <h2>Our Courses</h2>
   <div class="course-container">
 
-    <!-- Web -->
     <div class="course-card">
       <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085">
       <h3>Web Development</h3>
       <p>HTML, CSS, JS</p>
       <div class="rating">★★★★★</div>
-      <!-- ✅ FIXED -->
       <button onclick="goToCourse('webdev.html')">Enroll</button>
     </div>
 
-    <!-- DSA -->
     <div class="course-card">
       <img src="https://images.unsplash.com/photo-1515879218367-8466d910aaa4">
       <h3>Data Structures</h3>
       <p>DSA + Algorithms</p>
       <div class="rating">★★★★☆</div>
-      <!-- ✅ FIXED -->
       <button onclick="goToCourse('datastructures.html')">Enroll</button>
     </div>
 
-    <!-- ML -->
     <div class="course-card">
       <img src="https://images.unsplash.com/photo-1555949963-aa79dcee981c">
       <h3>Machine Learning</h3>
@@ -218,7 +151,6 @@ footer {
       <button onclick="goToCourse('ml.html')">Enroll</button>
     </div>
 
-    <!-- C FREE -->
     <div class="course-card">
       <img src="https://upload.wikimedia.org/wikipedia/commons/1/19/C_Logo.png">
       <h3>C Programming</h3>
@@ -232,14 +164,12 @@ footer {
 
 <section id="contact">
   <h2>Contact Us</h2>
-
   <div class="contact-container">
     <div class="contact-info">
       <h3>Get in Touch</h3>
       <p>Email: Engineerlearning@gmail.com</p>
       <p>Phone: +91 86588 71121</p>
     </div>
-
     <form id="contactForm">
       <input type="text" id="name" placeholder="Your Name" required>
       <input type="email" id="email" placeholder="Your Email" required>
@@ -250,111 +180,65 @@ footer {
 </section>
 
 <footer>
-  <p>© 2025 Engineers Learning</p>
+  <div class="footer-top">
+
+    <!-- Column 1: Download App -->
+    <div class="footer-col">
+      <h4>Download Our App</h4>
+      <p>Learn on the go — available for Android and iOS.</p>
+      <div class="app-buttons">
+        <a href="#" class="app-btn">
+          <span class="app-icon">▶</span>
+          <div>
+            <small>GET IT ON</small>
+            <strong>Google Play</strong>
+          </div>
+        </a>
+        <a href="#" class="app-btn">
+          <span class="app-icon">🍎</span>
+          <div>
+            <small>Download on the</small>
+            <strong>App Store</strong>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <!-- Column 2: Brand -->
+    <div class="footer-col footer-brand">
+      <h2 class="footer-logo">ENGINEERS<span>LEARNING</span></h2>
+      <p>Our mission is to make quality engineering education accessible to everyone, everywhere.</p>
+    </div>
+
+    <!-- Column 3: Useful Links -->
+    <div class="footer-col">
+      <h4>Useful Links</h4>
+      <ul class="footer-links">
+        <li><a href="#">About Us</a></li>
+        <li><a href="#">Privacy Policy</a></li>
+        <li><a href="#">Terms of Use</a></li>
+        <li><a href="#">Join as Instructor</a></li>
+      </ul>
+    </div>
+
+    <!-- Column 4: Follow Us -->
+    <div class="footer-col">
+      <h4>Follow Us</h4>
+      <ul class="footer-links">
+        <li><a href="#">Facebook</a></li>
+        <li><a href="#">Twitter / X</a></li>
+        <li><a href="#">Instagram</a></li>
+        <li><a href="#">YouTube</a></li>
+      </ul>
+    </div>
+
+  </div>
+
+  <div class="footer-bottom">
+    <p>© 2025 Engineers Learning. All rights reserved.</p>
+  </div>
 </footer>
 
-<script>
-const params = new URLSearchParams(window.location.search);
-const user = params.get("user");
-
-const dashboardLink = document.getElementById("dashboardLink");
-const loginLink = document.getElementById("loginLink");
-const signupLink = document.getElementById("signupLink");
-const welcomeText = document.getElementById("welcomeText");
-
-if (user) {
-  dashboardLink.href = "dashboard.html?user=" + user;
-
-  welcomeText.innerText = "Welcome, " + user;
-  setTimeout(() => {
-    welcomeText.classList.add("show");
-  }, 100);
-
-  loginLink.style.display = "none";
-  signupLink.style.display = "none";
-} else {
-  dashboardLink.href = "login.html";
-}
-</script>
-
-<script>
-function goToCourse(page) {
-  const username = new URLSearchParams(window.location.search).get("user");
-
-  if (!username) {
-    alert("Please login first!");
-    return;
-  }
-
-  window.location.href = page + "?user=" + username;
-}
-
-function goToMyCourses() {
-  const username = new URLSearchParams(window.location.search).get("user");
-  window.location.href = `/mycourses.html?user=${username}`;
-}
-
-function enrollAndGo(courseName, page) {
-  const username = new URLSearchParams(window.location.search).get("user");
-
-  if (!username) {
-    alert("Please login first!");
-    return;
-  }
-
-  fetch("/enroll", {
-    method: "POST",
-    headers: {"Content-Type": "application/json"},
-    body: JSON.stringify({ username, course: courseName })
-  })
-  .then(res => res.json())
-  .then(data => {
-    alert(data.message);
-    window.location.href = page + "?user=" + username;
-  });
-}
-</script>
-
-<script>
-document.getElementById("contactForm").addEventListener("submit", async function(e){
-  e.preventDefault();
-
-  const res = await fetch("/contact", {
-    method: "POST",
-    headers: {"Content-Type": "application/json"},
-    body: JSON.stringify({
-      name: name.value,
-      email: email.value,
-      message: message.value
-    })
-  });
-
-  const data = await res.json();
-  alert(data.message);
-});
-</script>
-
-<script>
-const texts = [
-  "Build real projects and get certified",
-  "Learn AI/ML, Web Development and Data Structures"
-];
-
-let i=0,j=0,cur="",del=false;
-
-function typeEffect(){
-  const el=document.getElementById("typing");
-  if(!el) return;
-
-  if(!del && j<texts[i].length){ cur+=texts[i][j++]; }
-  else if(del && j>0){ cur=cur.slice(0,--j); }
-  else{ del=!del; if(!del) i=(i+1)%texts.length; }
-
-  el.innerHTML=cur;
-  setTimeout(typeEffect, del?40:80);
-}
-typeEffect();
-</script>
-
+<script src="index.js"></script>
 </body>
 </html>
