@@ -3,159 +3,106 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login | Engineers Learners</title>
-  <link rel="stylesheet" href="style.css">
-
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: "Segoe UI", Tahoma, sans-serif;
-
-      /* Animated Gradient */
-      background: linear-gradient(-45deg, #94d122, #2a5298, #1e3c72, #00c6ff);
-      background-size: 400% 400%;
-      animation: gradientMove 10s ease infinite;
-
-      height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    @keyframes gradientMove {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-
-    .login-container {
-      background: #fff;
-      padding: 40px 35px;
-      border-radius: 15px;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.2);
-      text-align: center;
-      width: 320px;
-    }
-
-    /* Animated Icon */
-    .login-container img {
-      width: 80px;
-      margin-bottom: 10px;
-      animation: float 3s ease-in-out infinite;
-    }
-
-    @keyframes float {
-      0% { transform: translateY(0px); }
-      50% { transform: translateY(-10px); }
-      100% { transform: translateY(0px); }
-    }
-
-    .login-container h1 {
-      color: rgb(90, 85, 85);
-      margin-bottom: 8px;
-      font-size: 24px;
-    }
-
-    .login-container p {
-      color: #444;
-      font-size: 14px;
-      margin-bottom: 20px;
-      font-style: italic;
-    }
-
-    .login-container input {
-      width: 100%;
-      padding: 12px;
-      margin: 10px 0;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      outline: none;
-      transition: 0.3s;
-    }
-
-    .login-container input:focus {
-      border-color: #2a5298;
-      box-shadow: 0 0 6px rgba(42,82,152,0.4);
-    }
-
-    .login-container button {
-      position: relative;
-      overflow: hidden;
-      background: #2a5298;
-      color: #fff;
-      border: none;
-      padding: 12px;
-      width: 100%;
-      border-radius: 8px;
-      font-size: 16px;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-
-    .login-container button:hover {
-      background: #1e3c72;
-    }
-
-    .login-container button:active {
-      transform: scale(0.96);
-    }
-
-    /* Ripple */
-    .login-container button span {
-      position: absolute;
-      background: rgba(255,255,255,0.5);
-      border-radius: 50%;
-      transform: scale(0);
-      animation: ripple 0.6s linear;
-    }
-
-    @keyframes ripple {
-      to {
-        transform: scale(4);
-        opacity: 0;
-      }
-    }
-  </style>
+  <title>Login | Engineers Learning</title>
+  <link rel="stylesheet" href="login.css">
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500&display=swap" rel="stylesheet">
 </head>
 
 <body>
-  <div class="login-container">
 
-    <!-- Image -->
-    <img src="https://cdn-icons-png.flaticon.com/512/1055/1055687.png" alt="CS Icon">
+  <div class="login-wrapper">
 
-    <h1>Engineers Learning</h1>
-    <p>"Empowering learners to build tomorrow's innovations."</p>
+    <!-- LEFT PANEL -->
+    <div class="login-left">
+      <div class="left-content">
 
-    <!-- IMPORTANT: keep your form same -->
-    <form method="POST" action="/login" id="loginForm">
-  <input type="text" name="username" id="username" placeholder="Enter your name" required>
-  <input type="password" name="password" id="password" placeholder="Enter password" required>
-  <button type="submit">Login</button>
-</form>
+        <!-- SVG Illustration -->
+        <svg width="180" height="180" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="100" cy="100" r="90" fill="rgba(255,255,255,0.1)"/>
+          <rect x="55" y="65" width="40" height="55" rx="4" fill="white" opacity="0.9"/>
+          <rect x="100" y="65" width="40" height="55" rx="4" fill="white" opacity="0.7"/>
+          <line x1="97" y1="65" x2="100" y2="120" stroke="#4a6cf7" stroke-width="2"/>
+          <line x1="62" y1="80" x2="88" y2="80" stroke="#4a6cf7" stroke-width="2" stroke-linecap="round"/>
+          <line x1="62" y1="88" x2="88" y2="88" stroke="#4a6cf7" stroke-width="2" stroke-linecap="round"/>
+          <line x1="62" y1="96" x2="80" y2="96" stroke="#4a6cf7" stroke-width="2" stroke-linecap="round"/>
+          <line x1="107" y1="80" x2="133" y2="80" stroke="#4a6cf7" stroke-width="2" stroke-linecap="round"/>
+          <line x1="107" y1="88" x2="133" y2="88" stroke="#4a6cf7" stroke-width="2" stroke-linecap="round"/>
+          <polygon points="100,42 130,58 100,58 70,58" fill="white" opacity="0.95"/>
+          <rect x="94" y="55" width="12" height="12" rx="2" fill="white" opacity="0.95"/>
+          <text x="58" y="158" font-size="18" font-weight="bold" fill="white" font-family="monospace" opacity="0.8">&lt;/&gt;</text>
+          <circle cx="150" cy="110" r="5" fill="white" opacity="0.3"/>
+          <circle cx="40" cy="90" r="4" fill="white" opacity="0.2"/>
+        </svg>
+
+        <h1 class="left-title">Welcome Back!</h1>
+        <p class="left-subtitle">Continue your learning journey.<br>Build. Code. Innovate.</p>
+
+        <!-- Feature pills -->
+        <div class="feature-pills">
+          <span class="pill">🎓 10+ Courses</span>
+          <span class="pill">⚡ Free Access</span>
+          <span class="pill">📜 Certificates</span>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- RIGHT PANEL -->
+    <div class="login-right">
+      <div class="right-content">
+
+        <div class="brand-tag">
+          <div class="el-dot">EL</div>
+          <span>Engineers Learning</span>
+        </div>
+
+        <h2>Login to your account</h2>
+        <p class="form-subtitle">"Empowering learners to build tomorrow's innovations."</p>
+
+        <form method="POST" action="/login" id="loginForm">
+
+          <div class="input-group">
+            <label for="username">Username</label>
+            <input type="text" name="username" id="username" placeholder="Enter your name" required>
+          </div>
+
+          <div class="input-group">
+            <label for="password">Password</label>
+            <input type="password" name="password" id="password" placeholder="Enter password" required>
+          </div>
+
+          <button type="submit" class="login-btn">Login</button>
+
+        </form>
+
+        <div class="divider"><span>or</span></div>
+
+        <button class="signup-btn" onclick="window.location.href='signup.html'">
+          Create New Account
+        </button>
+
+        <p class="back-home"><a href="index.html">← Back to Home</a></p>
+
+      </div>
+    </div>
 
   </div>
 
-  <!-- KEEP your original JS -->
   <script src="login.js"></script>
 
-  <!-- Only animation JS added -->
+  <!-- Ripple effect on login button -->
   <script>
-    const button = document.querySelector("button");
-
+    const button = document.querySelector(".login-btn");
     button.addEventListener("click", function(e) {
       const circle = document.createElement("span");
       const rect = button.getBoundingClientRect();
-
+      circle.classList.add("ripple");
       circle.style.left = e.clientX - rect.left + "px";
       circle.style.top = e.clientY - rect.top + "px";
-
       this.appendChild(circle);
-
       setTimeout(() => circle.remove(), 600);
     });
   </script>
 
 </body>
-</html> 
+</html>
