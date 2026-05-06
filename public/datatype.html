@@ -1,130 +1,346 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Data Types | C Programming</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
+    :root {
+      --bg: #eef2f7;
+      --surface: #ffffff;
+      --surface-soft: #f7f9fc;
+      --text: #1d2433;
+      --muted: #738196;
+      --border: #dde4ef;
+      --primary: #2f5bff;
+      --primary-dark: #2349d8;
+      --shadow: 0 10px 26px rgba(15, 23, 42, 0.08);
+    }
+
+    * { box-sizing: border-box; }
+
     body {
       margin: 0;
-      font-family: "Segoe UI", sans-serif;
-      color: white;
-
-      background: linear-gradient(-45deg, #1e3c72, #2a5298, #00c6ff);
-      background-size: 400% 400%;
-      animation: bgMove 10s ease infinite;
-      text-align: center;
-    }
-
-    @keyframes bgMove {
-      0% {background-position: 0% 50%;}
-      50% {background-position: 100% 50%;}
-      100% {background-position: 0% 50%;}
-    }
-
-    header {
-      padding: 20px;
-      background: rgba(0,0,0,0.4);
-    }
-
-    h1 {
-      margin: 0;
-    }
-
-    .container {
-      margin-top: 60px;
-      display: flex;
-      justify-content: center;
-      gap: 30px;
-      flex-wrap: wrap;
-    }
-
-    .card {
-      background: rgba(255,255,255,0.15);
-      backdrop-filter: blur(10px);
-      padding: 30px;
-      width: 200px;
-      border-radius: 15px;
-      cursor: pointer;
-      transition: 0.3s;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
-    }
-
-    .card:hover {
-      transform: translateY(-10px) scale(1.05);
-    }
-
-    .card img {
-      width: 80px;
-      margin-bottom: 10px;
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
     }
 
     a {
       text-decoration: none;
-      color: white;
+      color: inherit;
     }
 
-    .back {
-      display: inline-block;
-      margin-top: 30px;
-      color: #ffd700;
+    .page {
+      width: min(100%, 430px);
+      min-height: 100vh;
+      margin: 0 auto;
+      padding: 16px;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 18px;
+    }
+
+    .top-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: rgba(255,255,255,0.7);
+      color: #3a4558;
+      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.04);
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+
+    .header-card {
+      position: relative;
+      margin-bottom: 18px;
+      border-radius: 28px;
+      overflow: hidden;
+      padding: 18px 18px 20px 18px;
+      background: linear-gradient(135deg, #f4f6ff 0%, #eef2ff 55%, #e8eefc 100%);
+      box-shadow: var(--shadow);
+    }
+
+    .header-card::after {
+      content: "";
+      position: absolute;
+      right: -30px;
+      top: -26px;
+      width: 130px;
+      height: 130px;
+      background: rgba(98, 122, 255, 0.08);
+      border-radius: 50%;
+    }
+
+    .header-inner {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .mini-back {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: #ffffff;
+      color: #4b5565;
+      border: 1px solid #e6ebf5;
+      flex-shrink: 0;
+      font-size: 18px;
+    }
+
+    .eyebrow {
+      margin: 0 0 4px;
+      color: var(--primary);
+      text-transform: uppercase;
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      font-weight: 800;
+    }
+
+    .title {
+      margin: 0;
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text);
+    }
+
+    .main-card {
+      background: var(--surface);
+      border-radius: 24px;
+      padding: 18px;
+      box-shadow: var(--shadow);
+      border: 1px solid #e6ebf3;
+    }
+
+    .section-title {
+      margin: 0 0 16px;
+      font-size: 18px;
+      font-weight: 800;
+      color: #1c2434;
+    }
+
+    .link-grid {
+      display: grid;
+      gap: 14px;
+    }
+
+    .lesson-link {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 16px;
+      border-radius: 18px;
+      background: #fbfcfe;
+      border: 1px solid #e7edf6;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .lesson-link:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 18px rgba(15, 23, 42, 0.05);
+    }
+
+    .lesson-link.disabled,
+    .lesson-link[aria-disabled="true"] {
+      opacity: 0.45;
+      pointer-events: none;
+      filter: grayscale(0.15);
+    }
+
+    .lesson-left {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      min-width: 0;
+    }
+
+    .lesson-symbol {
+      width: 46px;
+      height: 46px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      background: #ffffff;
+      border: 1px solid #e6ebf4;
+      color: var(--primary);
+      flex-shrink: 0;
+      box-shadow: 0 4px 10px rgba(47, 91, 255, 0.06);
+    }
+
+    .lesson-symbol svg {
+      width: 22px;
+      height: 22px;
+      display: block;
+    }
+
+    .lesson-copy h3 {
+      margin: 0 0 4px;
+      font-size: 15px;
+      font-weight: 800;
+      color: #1e2737;
+    }
+
+    .lesson-copy p {
+      margin: 0;
+      font-size: 12.5px;
+      line-height: 1.45;
+      color: var(--muted);
+    }
+
+    .arrow {
+      color: var(--primary);
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+
+    .status-note {
+      display: none;
+      align-items: center;
+      gap: 10px;
+      margin-top: 18px;
+      padding: 14px 16px;
+      border-radius: 16px;
+      background: #fff5cf;
+      border: 1px solid #efd982;
+      color: #7a5a00;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .back-wrap {
+      margin-top: 18px;
+    }
+
+    .footer-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 18px;
+      border-radius: 999px;
+      background: var(--surface);
+      border: 1px solid #e1e7f0;
+      color: #263246;
+      font-size: 14px;
+      font-weight: 800;
+      box-shadow: 0 8px 18px rgba(15, 23, 42, 0.05);
     }
   </style>
 </head>
-
 <body>
-
-<header>
-  <h1>Data Types</h1>
-</header>
-
-<div class="container">
-
-  <!-- About -->
-  <a href="datatype-about.html">
-    <div class="card">
-      <img src="https://cdn-icons-png.flaticon.com/512/1828/1828817.png">
-      <h3>About</h3>
-      <p>Learn theory of data types</p>
+  <div class="page">
+    <div class="topbar">
+      <a href="cprogramming.html" class="top-icon" aria-label="Close and go back">✕</a>
+      <div class="top-icon" aria-hidden="true">⇩</div>
     </div>
-  </a>
 
-  <!-- Video -->
-  <a href="datatype-video.html">
-    <div class="card">
-      <img src="https://cdn-icons-png.flaticon.com/512/727/727245.png">
-      <h3>Video</h3>
-      <p>Watch explanation videos</p>
+    <section class="header-card">
+      <div class="header-inner">
+        <a href="cprogramming.html" class="mini-back" aria-label="Back to C Programming">←</a>
+        <div>
+          <p class="eyebrow">C Programming</p>
+          <h1 class="title">Data Types</h1>
+        </div>
+      </div>
+    </section>
+
+    <section class="main-card">
+      <h2 class="section-title">Course Offerings</h2>
+      <div class="link-grid">
+        <a class="lesson-link" href="datatype-about.html">
+          <div class="lesson-left">
+            <div class="lesson-symbol" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="6" y="3" width="12" height="18" rx="2.5" fill="currentColor" opacity="0.18"/>
+                <path d="M8.5 6.5H15.5M8.5 10H15.5M8.5 13.5H13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div class="lesson-copy">
+              <h3>About</h3>
+              <p>Learn the theory and meaning of C data types.</p>
+            </div>
+          </div>
+          <div class="arrow">→</div>
+        </a>
+
+        <a class="lesson-link" href="datatype-video.html">
+          <div class="lesson-left">
+            <div class="lesson-symbol" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="12" cy="12" r="9" fill="currentColor" opacity="0.14"/>
+                <path d="M10 8.8L16 12L10 15.2V8.8Z" fill="currentColor"/>
+              </svg>
+            </div>
+            <div class="lesson-copy">
+              <h3>Video</h3>
+              <p>Watch the explanation before attempting the quiz.</p>
+            </div>
+          </div>
+          <div class="arrow">→</div>
+        </a>
+
+        <a class="lesson-link" href="datatype-quiz.html" id="quizLink">
+          <div class="lesson-left">
+            <div class="lesson-symbol" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="6" y="4" width="12" height="16" rx="2.5" fill="currentColor" opacity="0.12"/>
+                <path d="M9 9H15M9 12H14M9 15H12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                <path d="M16.5 5.5L18.5 7.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div class="lesson-copy">
+              <h3>Quiz</h3>
+              <p>Test your knowledge after completing the video.</p>
+            </div>
+          </div>
+          <div class="arrow">→</div>
+        </a>
+      </div>
+    </section>
+
+    <div class="status-note" id="videoNotice">
+      <span>🔒</span>
+      <span>Please watch the video first to unlock the quiz.</span>
     </div>
-  </a>
 
-  <!-- Quiz -->
-  <a href="datatype-quiz.html">
-    <div class="card">
-      <img src="https://cdn-icons-png.flaticon.com/512/942/942748.png">
-      <h3>Quiz</h3>
-      <p>Test your knowledge</p>
+    <div class="back-wrap">
+      <a href="cprogramming.html" class="footer-back">← Back to Course</a>
     </div>
-  </a>
+  </div>
 
-</div>
+  <script>
+    (function () {
+      const quizLink = document.getElementById('quizLink');
+      const notice = document.getElementById('videoNotice');
+      let videoStatus = null;
 
-<a href="cprogramming.html" class="back">← Back to Course</a>
+      try {
+        videoStatus = window.localStorage ? localStorage.getItem('datatype_video') : null;
+      } catch (error) {
+        videoStatus = null;
+      }
 
+      if (videoStatus !== 'completed' && quizLink) {
+        quizLink.classList.add('disabled');
+        quizLink.setAttribute('aria-disabled', 'true');
+        notice.style.display = 'flex';
+      }
+    }());
+  </script>
 </body>
 </html>
-
-<script>
-  // Check if video is completed
-  const videoStatus = localStorage.getItem("datatype_video");
-
-  if (videoStatus !== "completed") {
-    // Disable quiz if not completed
-    const quizLink = document.querySelector('a[href="datatype-quiz.html"]');
-    quizLink.style.pointerEvents = "none";
-    quizLink.style.opacity = "0.5";
-
-    alert("Please watch video first to unlock quiz");
-  }
-</script>
