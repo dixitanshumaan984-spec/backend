@@ -1,87 +1,402 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Data Types Video | C Programming</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
+    :root {
+      --bg: #eef2f7;
+      --surface: #ffffff;
+      --surface-soft: #f8faff;
+      --text: #1d2433;
+      --muted: #6f7e95;
+      --border: #dde4ef;
+      --primary: #2f5bff;
+      --primary-dark: #2248d6;
+      --success-bg: #e9f9ef;
+      --success-border: #bfe7cb;
+      --success-text: #166534;
+      --shadow: 0 16px 40px rgba(15, 23, 42, 0.08);
+    }
+
+    * { box-sizing: border-box; }
+
     body {
       margin: 0;
-      font-family: "Segoe UI", sans-serif;
-      color: white;
-      text-align: center;
-
-      background: linear-gradient(-45deg, #1e3c72, #2a5298, #00c6ff);
-      background-size: 400% 400%;
-      animation: bgMove 10s ease infinite;
+      font-family: 'Inter', sans-serif;
+      background:
+        radial-gradient(circle at top right, rgba(47, 91, 255, 0.08), transparent 22%),
+        linear-gradient(180deg, #f3f6fb 0%, #eef2f7 100%);
+      color: var(--text);
     }
 
-    @keyframes bgMove {
-      0% {background-position: 0% 50%;}
-      50% {background-position: 100% 50%;}
-      100% {background-position: 0% 50%;}
-    }
-
-    header {
-      padding: 20px;
-      background: rgba(0,0,0,0.4);
-    }
-
-    h1 {
-      margin: 0;
-    }
-
-    .video-container {
-      margin-top: 50px;
-    }
-
-    iframe {
-      width: 80%;
-      max-width: 800px;
-      height: 450px;
-      border-radius: 15px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
-    }
-    
-
-    .back {
-      display: inline-block;
-      margin-top: 30px;
-      color: #ffd700;
+    a {
       text-decoration: none;
+      color: inherit;
+    }
+
+    button {
+      font: inherit;
+      border: none;
+      cursor: pointer;
+    }
+
+    .page {
+      min-height: 100vh;
+      padding: 28px;
+    }
+
+    .shell {
+      max-width: 1240px;
+      margin: 0 auto;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 24px;
+    }
+
+    .topbar-left,
+    .topbar-right {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .top-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: rgba(255, 255, 255, 0.88);
+      border: 1px solid rgba(221, 228, 239, 0.85);
+      box-shadow: 0 6px 18px rgba(15, 23, 42, 0.05);
+      color: #3a4558;
+      font-size: 20px;
+    }
+
+    .top-label {
+      font-size: 14px;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      border-radius: 32px;
+      background: linear-gradient(135deg, #f4f6ff 0%, #eef2ff 55%, #e8eefc 100%);
+      border: 1px solid #e3e9f4;
+      box-shadow: var(--shadow);
+      padding: 34px;
+      margin-bottom: 28px;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      top: -34px;
+      right: -24px;
+      width: 190px;
+      height: 190px;
+      border-radius: 50%;
+      background: rgba(98, 122, 255, 0.08);
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .hero-left {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .hero-icon {
+      width: 62px;
+      height: 62px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: #ffffff;
+      border: 1px solid #e7ecf5;
+      color: #4b5565;
+      font-size: 24px;
+      box-shadow: 0 8px 20px rgba(15, 23, 42, 0.05);
+      flex-shrink: 0;
+    }
+
+    .eyebrow {
+      margin: 0 0 6px;
+      color: var(--primary);
+      text-transform: uppercase;
+      font-size: 13px;
+      letter-spacing: 0.12em;
+      font-weight: 800;
+    }
+
+    .hero-title {
+      margin: 0 0 8px;
+      font-size: 40px;
+      line-height: 1.08;
+      font-weight: 800;
+    }
+
+    .hero-text {
+      margin: 0;
+      color: var(--muted);
+      font-size: 16px;
+      max-width: 680px;
+      line-height: 1.65;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 18px;
+      border-radius: 999px;
+      background: #ffffff;
+      border: 1px solid #e6ebf4;
+      color: var(--primary);
+      font-size: 14px;
+      font-weight: 800;
+      box-shadow: 0 8px 20px rgba(15, 23, 42, 0.05);
+      white-space: nowrap;
+    }
+
+    .content-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 2fr) minmax(320px, 0.95fr);
+      gap: 28px;
+      align-items: start;
+    }
+
+    .card {
+      background: var(--surface);
+      border-radius: 28px;
+      border: 1px solid #e5ebf4;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .video-card {
+      padding: 24px;
+    }
+
+    .section-title {
+      margin: 0 0 8px;
+      font-size: 28px;
+      font-weight: 800;
+    }
+
+    .section-text {
+      margin: 0 0 20px;
+      font-size: 15px;
+      line-height: 1.65;
+      color: var(--muted);
+      max-width: 72ch;
+    }
+
+    .video-shell {
+      overflow: hidden;
+      border-radius: 24px;
+      background: #0f172a;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.05);
+      aspect-ratio: 16 / 9;
+    }
+
+    .video-shell iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+      display: block;
+    }
+
+    .side-card {
+      padding: 24px;
+      display: grid;
+      gap: 18px;
+    }
+
+    .info-box {
+      padding: 18px;
+      border-radius: 22px;
+      background: var(--surface-soft);
+      border: 1px solid #e9eef7;
+    }
+
+    .info-box h3 {
+      margin: 0 0 10px;
       font-size: 18px;
+      font-weight: 800;
+    }
+
+    .info-box p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .primary-btn {
+      width: 100%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 15px 20px;
+      border-radius: 18px;
+      background: linear-gradient(180deg, var(--primary) 0%, var(--primary-dark) 100%);
+      color: #ffffff;
+      font-size: 15px;
+      font-weight: 800;
+      box-shadow: 0 14px 28px rgba(47, 91, 255, 0.24);
+    }
+
+    .primary-btn:active {
+      transform: translateY(1px);
+    }
+
+    .status-box {
+      display: none;
+      align-items: center;
+      gap: 10px;
+      padding: 15px 16px;
+      border-radius: 18px;
+      background: var(--success-bg);
+      border: 1px solid var(--success-border);
+      color: var(--success-text);
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .status-box.show {
+      display: flex;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 4px;
+      color: #263246;
+      font-size: 14px;
+      font-weight: 800;
+    }
+
+    @media (max-width: 980px) {
+      .content-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-inner {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .hero-badge {
+        white-space: normal;
+      }
     }
   </style>
 </head>
-
 <body>
+  <div class="page">
+    <div class="shell">
+      <div class="topbar">
+        <div class="topbar-left">
+          <a href="datatype.html" class="top-icon" aria-label="Close and go back">✕</a>
+          <span class="top-label">Desktop lesson view</span>
+        </div>
+        <div class="topbar-right">
+          <div class="top-icon" aria-hidden="true">▶</div>
+        </div>
+      </div>
 
-<header>
-  <h1>Data Types - Video Lecture</h1>
-</header>
+      <section class="hero">
+        <div class="hero-inner">
+          <div class="hero-left">
+            <a href="datatype.html" class="hero-icon" aria-label="Back to Data Types">←</a>
+            <div>
+              <p class="eyebrow">C Programming</p>
+              <h1 class="hero-title">Data Types Video</h1>
+              <p class="hero-text">Watch the full lecture on C data types, then save your progress to unlock the quiz from the main Data Types page. The navigation and completion logic remain connected to your existing files.</p>
+            </div>
+          </div>
+          <div class="hero-badge">Lesson 2 • Video Module</div>
+        </div>
+      </section>
 
-<div class="video-container">
+      <section class="content-grid">
+        <div class="card video-card">
+          <h2 class="section-title">Video Lecture</h2>
+          <p class="section-text">This desktop layout gives the video more space, keeps the UI aligned with your updated course style, and preserves the same YouTube source and completion behavior.</p>
+          <div class="video-shell">
+            <iframe
+              src="https://www.youtube.com/embed/BjS0gzK3CVg"
+              title="Data Types Video Lecture"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen>
+            </iframe>
+          </div>
+        </div>
 
-  <!-- Your YouTube Video -->
-  <iframe 
-    src="https://www.youtube.com/embed/BjS0gzK3CVg" 
-    frameborder="0"
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-    allowfullscreen>
-  </iframe>
-<button onclick="markCompleted()">Mark as Completed ✅</button>
-</div>
+        <aside class="card side-card">
+          <div class="info-box">
+            <h3>Lesson Action</h3>
+            <p>After watching the video, save your progress so the quiz becomes available on the previous page.</p>
+          </div>
 
-<a href="datatype.html" class="back">← Back to Data Types</a>
+          <button class="primary-btn" onclick="markCompleted()">
+            <span>✅</span>
+            <span>Mark as Completed</span>
+          </button>
 
-<script>
-  function markCompleted() {
-    // Save progress in browser
-    localStorage.setItem("datatype_video", "completed");
+          <div class="status-box" id="statusBox">
+            <span>✔</span>
+            <span>Progress saved. Quiz is now unlocked.</span>
+          </div>
 
-    alert("Progress saved!");
-  }
-</script>
+          <a href="datatype.html" class="back-link">← Back to Data Types</a>
+        </aside>
+      </section>
+    </div>
+  </div>
+
+  <script>
+    const statusBox = document.getElementById('statusBox');
+
+    (function () {
+      try {
+        if (window.localStorage && localStorage.getItem('datatype_video') === 'completed') {
+          statusBox.classList.add('show');
+        }
+      } catch (error) {}
+    }());
+
+    function markCompleted() {
+      try {
+        if (window.localStorage) {
+          localStorage.setItem('datatype_video', 'completed');
+        }
+      } catch (error) {}
+
+      statusBox.classList.add('show');
+    }
+  </script>
 </body>
 </html>
