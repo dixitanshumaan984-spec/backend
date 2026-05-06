@@ -3,97 +3,616 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Data Structures Course</title>
-  <link rel="stylesheet" href="style.css">
-  <script defer src="script.js"></script>
-
+  <title>Data Structures Course | Engineers Learning</title>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
+    :root {
+      --blue: #4a6cf7;
+      --blue-dark: #3358e8;
+      --navy: #1a1a2e;
+      --text: #333;
+      --muted: #777;
+      --bg: #f8f9fb;
+      --white: #ffffff;
+      --shadow: 0 4px 20px rgba(74,108,247,0.12);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
     body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      text-align: center;
+      font-family: "Inter", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      padding-bottom: 80px;
     }
 
-    header {
-      background-color: #1e1e1e;
-      color: white;
-      padding: 15px;
+    /* ── NAVBAR ── */
+    nav {
+      background: var(--white);
+      padding: 14px 30px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+      position: sticky;
+      top: 0;
+      z-index: 100;
     }
 
-    .banner img {
+    .nav-brand {
+      font-family: "Sora", sans-serif;
+      font-weight: 800;
+      font-size: 18px;
+      color: var(--navy);
+      text-decoration: none;
+    }
+
+    .nav-brand span { color: var(--blue); }
+
+    .nav-back {
+      font-size: 13px;
+      color: var(--blue);
+      text-decoration: none;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: gap 0.2s;
+    }
+
+    .nav-back:hover { gap: 10px; }
+
+    /* ── TABS ── */
+    .tabs {
+      background: var(--white);
+      display: flex;
+      border-bottom: 2px solid #eee;
+      padding: 0 20px;
+      position: sticky;
+      top: 53px;
+      z-index: 99;
+      overflow-x: auto;
+    }
+
+    .tab {
+      padding: 14px 20px;
+      font-size: 14px;
+      font-weight: 600;
+      font-family: "Sora", sans-serif;
+      color: var(--muted);
+      cursor: pointer;
+      border-bottom: 3px solid transparent;
+      margin-bottom: -2px;
+      white-space: nowrap;
+      transition: all 0.2s;
+    }
+
+    .tab.active, .tab:hover {
+      color: var(--blue);
+      border-bottom-color: var(--blue);
+    }
+
+    /* ── HERO BANNER ── */
+    .hero {
+      position: relative;
+      height: 280px;
+      overflow: hidden;
+    }
+
+    .hero img {
       width: 100%;
-      height: 300px;
+      height: 100%;
       object-fit: cover;
     }
 
-    .course-details {
-      padding: 20px;
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to right, rgba(26,26,46,0.85) 40%, rgba(74,108,247,0.3));
+      display: flex;
+      align-items: center;
+      padding: 30px 40px;
     }
 
-    ul {
-      text-align: left;
-      display: inline-block;
-    }
-
-    .images {
-      margin-top: 20px;
-    }
-
-    .course-img {
-      width: 150px;
-      margin: 10px;
-    }
-
-    .btn {
-      display: inline-block;
-      margin-top: 15px;
-      padding: 10px 20px;
-      background-color: purple;
+    .hero-text h1 {
+      font-family: "Sora", sans-serif;
+      font-size: 28px;
+      font-weight: 800;
       color: white;
-      text-decoration: none;
-      border-radius: 5px;
+      margin-bottom: 10px;
+    }
+
+    .hero-text p {
+      color: rgba(255,255,255,0.8);
+      font-size: 14px;
+      max-width: 400px;
+      line-height: 1.6;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: var(--blue);
+      color: white;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 20px;
+      margin-bottom: 10px;
+      letter-spacing: 1px;
+      font-family: "Sora", sans-serif;
+    }
+
+    /* ── INFO GRID ── */
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      background: var(--white);
+      box-shadow: var(--shadow);
+    }
+
+    .info-box {
+      padding: 18px 10px;
+      text-align: center;
+      border-right: 1px solid #f0f0f0;
+    }
+
+    .info-box:last-child { border-right: none; }
+
+    .info-box strong {
+      display: block;
+      font-family: "Sora", sans-serif;
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--blue);
+      margin-bottom: 4px;
+    }
+
+    .info-box span {
+      font-size: 12px;
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    /* ── SECTIONS ── */
+    .section {
+      background: var(--white);
+      padding: 24px 24px;
+      margin-top: 12px;
+      border-radius: 12px;
+      margin-left: 12px;
+      margin-right: 12px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+
+    .section h3 {
+      font-family: "Sora", sans-serif;
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--navy);
+      margin-bottom: 16px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #f0f0f0;
+    }
+
+    .section p {
+      font-size: 14px;
+      color: #555;
+      line-height: 1.7;
+      margin-bottom: 16px;
+    }
+
+    /* ── FEATURES ── */
+    .features-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .feature {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
+      background: #f0f4ff;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--navy);
+    }
+
+    .feature-icon {
+      width: 28px;
+      height: 28px;
+      background: var(--blue);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 13px;
+      flex-shrink: 0;
+    }
+
+    /* ── STATS ── */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    .stat-box {
+      background: linear-gradient(135deg, var(--blue), var(--blue-dark));
+      padding: 20px 10px;
+      border-radius: 12px;
+      text-align: center;
+      color: white;
+      box-shadow: 0 4px 15px rgba(74,108,247,0.3);
+    }
+
+    .stat-box strong {
+      display: block;
+      font-family: "Sora", sans-serif;
+      font-size: 22px;
+      font-weight: 800;
+      margin-bottom: 4px;
+    }
+
+    .stat-box span {
+      font-size: 12px;
+      opacity: 0.85;
+    }
+
+    /* ── TOPIC ICONS ── */
+    .topic-icons {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+      padding: 10px 0;
+    }
+
+    .topic-icon-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .topic-icon-item img {
+      width: 60px;
+      height: 60px;
+      object-fit: contain;
+      border-radius: 12px;
+      background: #f0f4ff;
+      padding: 8px;
+    }
+
+    .topic-icon-item span {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--navy);
+      font-family: "Sora", sans-serif;
+    }
+
+    /* ── OFFERINGS ── */
+    .offerings-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .offer {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 16px;
+      background: #f8f9ff;
+      border-radius: 10px;
+      border-left: 3px solid var(--blue);
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--navy);
+      transition: all 0.2s;
+    }
+
+    .offer:hover {
+      background: #eef1ff;
+      transform: translateX(4px);
+    }
+
+    .offer-emoji { font-size: 20px; }
+
+    /* ── FAQ ── */
+    .faq-item {
+      border-bottom: 1px solid #f0f0f0;
+      padding: 14px 0;
+      cursor: pointer;
+    }
+
+    .faq-item:last-child { border-bottom: none; }
+
+    .faq-question {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--navy);
+      font-family: "Sora", sans-serif;
+    }
+
+    .faq-arrow {
+      font-size: 18px;
+      color: var(--blue);
+      transition: transform 0.3s;
+      font-weight: 400;
+    }
+
+    .faq-item.open .faq-arrow { transform: rotate(45deg); }
+
+    .faq-answer {
+      display: none;
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 10px;
+      line-height: 1.7;
+      padding-right: 20px;
+    }
+
+    /* ── INLINE BUY BUTTON ── */
+    .buy-section { margin: 12px; }
+
+    .buy-inline {
+      width: 100%;
+      padding: 16px;
+      background: linear-gradient(135deg, var(--blue), var(--blue-dark));
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 700;
+      font-family: "Sora", sans-serif;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(74,108,247,0.4);
+      transition: all 0.3s;
+      letter-spacing: 0.5px;
+    }
+
+    .buy-inline:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(74,108,247,0.5);
+    }
+
+    .buy-note {
+      text-align: center;
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 8px;
+    }
+
+    /* ── STICKY BUY BUTTON ── */
+    .buy-sticky {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: var(--white);
+      padding: 12px 20px;
+      box-shadow: 0 -4px 20px rgba(0,0,0,0.1);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      z-index: 200;
+    }
+
+    .sticky-price { font-family: "Sora", sans-serif; }
+
+    .sticky-price strong {
+      font-size: 22px;
+      color: var(--blue);
+      font-weight: 800;
+    }
+
+    .sticky-price span {
+      font-size: 12px;
+      color: var(--muted);
+      display: block;
+    }
+
+    .sticky-btn {
+      background: linear-gradient(135deg, var(--blue), var(--blue-dark));
+      color: white;
+      border: none;
+      padding: 12px 32px;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: 700;
+      font-family: "Sora", sans-serif;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(74,108,247,0.35);
+      transition: all 0.3s;
+    }
+
+    .sticky-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(74,108,247,0.5);
+    }
+
+    /* ── SECTION IMAGE ── */
+    .section-img {
+      width: 100%;
+      border-radius: 10px;
+      object-fit: cover;
+      height: 180px;
     }
   </style>
 </head>
 
 <body>
 
-  <header>
-    <h1>Data Structures Course</h1>
-  </header>
+  <!-- NAVBAR -->
+  <nav>
+    <a href="index.html" class="nav-brand">Engineers<span>Learning</span></a>
+    <a href="index.html#courses" class="nav-back">← All Courses</a>
+  </nav>
 
-  <!-- Banner -->
-  <div class="banner">
-    <img src="https://images.unsplash.com/photo-1515879218367-8466d910aaa4" alt="Programming Banner">
+  <!-- TABS -->
+  <div class="tabs">
+    <div class="tab active" onclick="setTab(this)">Overview</div>
+    <div class="tab" onclick="setTab(this)">Curriculum</div>
+    <div class="tab" onclick="setTab(this)">Mentors</div>
+    <div class="tab" onclick="setTab(this)">Plans</div>
   </div>
 
-  <main>
-    <section class="course-details">
-
-      <h2>Price: ₹3999</h2>
-
-      <h3>Course Outcomes:</h3>
-      <ul>
-        <li>Master DSA in JAVA</li>
-        <li>Master arrays, linked lists, stacks, and queues</li>
-        <li>Understand searching, sorting, backtracking, and greedy algorithms</li>
-        <li>Prepare for coding interviews with 500+ coding questions</li>
-      </ul>
-
-      <!-- DSA + Java Images -->
-      <div class="images">
-        <img src="https://cdn-icons-png.flaticon.com/512/226/226777.png" alt="Java" class="course-img">
-        <img src="https://cdn-icons-png.flaticon.com/512/2103/2103658.png" alt="Array" class="course-img">
-        <img src="https://cdn-icons-png.flaticon.com/512/2721/2721297.png" alt="Linked List" class="course-img">
-        <img src="https://cdn-icons-png.flaticon.com/512/2620/2620578.png" alt="Stack" class="course-img">
-        <img src="https://cdn-icons-png.flaticon.com/512/1055/1055687.png" alt="Queue" class="course-img">
+  <!-- HERO BANNER -->
+  <div class="hero">
+    <img src="https://images.unsplash.com/photo-1515879218367-8466d910aaa4" alt="Data Structures Banner">
+    <div class="hero-overlay">
+      <div class="hero-text">
+        <div class="hero-badge">🔥 INTERVIEW ESSENTIAL</div>
+        <h1>Data Structures Course</h1>
+        <p>Master DSA in Java, crack coding interviews with 500+ problems and real-world projects.</p>
       </div>
+    </div>
+  </div>
 
-      <a href="enroll.html?course=Data%20Structures" class="btn">Enroll</a>
+  <!-- INFO GRID -->
+  <div class="info-grid">
+    <div class="info-box"><strong>6 Mo.</strong><span>Duration</span></div>
+    <div class="info-box"><strong>Live</strong><span>Mode</span></div>
+    <div class="info-box"><strong>Hindi</strong><span>Language</span></div>
+    <div class="info-box"><strong>₹3999</strong><span>Price</span></div>
+  </div>
 
-    </section>
-  </main>
+  <!-- ABOUT -->
+  <div class="section">
+    <h3>About This Course</h3>
+    <p>Learn Data Structures & Algorithms from scratch using Java. Master arrays, linked lists, stacks, queues, trees, graphs, sorting and searching algorithms — then apply them in 500+ coding problems to ace your interviews.</p>
+    <div class="features-grid">
+      <div class="feature"><div class="feature-icon">✔</div> DSA in Java</div>
+      <div class="feature"><div class="feature-icon">✔</div> 500+ Problems</div>
+      <div class="feature"><div class="feature-icon">✔</div> Interview Prep</div>
+      <div class="feature"><div class="feature-icon">✔</div> Live Mentorship</div>
+      <div class="feature"><div class="feature-icon">✔</div> Certificate</div>
+      <div class="feature"><div class="feature-icon">✔</div> Lifetime Access</div>
+    </div>
+  </div>
+
+  <!-- TOPIC ICONS (original images preserved) -->
+  <div class="section">
+    <h3>Topics Covered</h3>
+    <div class="topic-icons">
+      <div class="topic-icon-item">
+        <img src="https://cdn-icons-png.flaticon.com/512/226/226777.png" alt="Java">
+        <span>Java</span>
+      </div>
+      <div class="topic-icon-item">
+        <img src="https://cdn-icons-png.flaticon.com/512/2103/2103658.png" alt="Arrays">
+        <span>Arrays</span>
+      </div>
+      <div class="topic-icon-item">
+        <img src="https://cdn-icons-png.flaticon.com/512/2721/2721297.png" alt="Linked List">
+        <span>Linked List</span>
+      </div>
+      <div class="topic-icon-item">
+        <img src="https://cdn-icons-png.flaticon.com/512/2620/2620578.png" alt="Stack">
+        <span>Stack</span>
+      </div>
+      <div class="topic-icon-item">
+        <img src="https://cdn-icons-png.flaticon.com/512/1055/1055687.png" alt="Queue">
+        <span>Queue</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- STATS -->
+  <div class="section">
+    <h3>Our Impact</h3>
+    <div class="stats-grid">
+      <div class="stat-box"><strong>350+</strong><span>Hiring Partners</span></div>
+      <div class="stat-box"><strong>200+</strong><span>Careers Placed</span></div>
+      <div class="stat-box"><strong>8 LPA</strong><span>Avg Package</span></div>
+    </div>
+  </div>
+
+  <!-- OFFERINGS -->
+  <div class="section">
+    <h3>Course Offerings</h3>
+    <div class="offerings-grid">
+      <div class="offer"><span class="offer-emoji">📘</span> Industry Curriculum</div>
+      <div class="offer"><span class="offer-emoji">☕</span> Java Deep Dive</div>
+      <div class="offer"><span class="offer-emoji">📅</span> Weekend Live Classes</div>
+      <div class="offer"><span class="offer-emoji">💡</span> 500+ Coding Problems</div>
+      <div class="offer"><span class="offer-emoji">🏆</span> Certificate</div>
+      <div class="offer"><span class="offer-emoji">💼</span> Job Assistance</div>
+    </div>
+  </div>
+
+  <!-- FAQ -->
+  <div class="section">
+    <h3>FAQs</h3>
+    <div class="faq-item" onclick="toggleFAQ(this)">
+      <div class="faq-question">What is this course about? <span class="faq-arrow">+</span></div>
+      <div class="faq-answer">This course covers Data Structures & Algorithms using Java, from basics to advanced interview-level problems.</div>
+    </div>
+    <div class="faq-item" onclick="toggleFAQ(this)">
+      <div class="faq-question">Is it beginner friendly? <span class="faq-arrow">+</span></div>
+      <div class="faq-answer">Yes, we start from scratch and build up to complex topics step by step.</div>
+    </div>
+    <div class="faq-item" onclick="toggleFAQ(this)">
+      <div class="faq-question">What are prerequisites? <span class="faq-arrow">+</span></div>
+      <div class="faq-answer">Basic Java or any programming knowledge is helpful but not mandatory.</div>
+    </div>
+    <div class="faq-item" onclick="toggleFAQ(this)">
+      <div class="faq-question">Will I get a certificate? <span class="faq-arrow">+</span></div>
+      <div class="faq-answer">Yes, after completing the course you receive a verified certificate.</div>
+    </div>
+  </div>
+
+  <!-- INLINE BUY BUTTON -->
+  <div class="buy-section">
+    <button class="buy-inline" onclick="goToEnroll()">🚀 Enroll Now — ₹3999 Only</button>
+    <p class="buy-note">✅ One-time payment &nbsp;·&nbsp; 🔒 Secure checkout &nbsp;·&nbsp; 💰 Money-back guarantee</p>
+  </div>
+
+  <!-- STICKY BUY BUTTON -->
+  <div class="buy-sticky">
+    <div class="sticky-price">
+      <strong>₹3999</strong>
+      <span>One-time payment</span>
+    </div>
+    <button class="sticky-btn" onclick="goToEnroll()">Buy Now →</button>
+  </div>
+
+  <script>
+    function goToEnroll() {
+      const course = "Data Structures";
+      window.location.href = "enroll.html?course=" + encodeURIComponent(course);
+    }
+
+    function toggleFAQ(element) {
+      const answer = element.querySelector(".faq-answer");
+      const isOpen = element.classList.contains("open");
+
+      // Close all
+      document.querySelectorAll(".faq-item").forEach(item => {
+        item.classList.remove("open");
+        item.querySelector(".faq-answer").style.display = "none";
+      });
+
+      // Open clicked one if it was closed
+      if (!isOpen) {
+        element.classList.add("open");
+        answer.style.display = "block";
+      }
+    }
+
+    function setTab(el) {
+      document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
+      el.classList.add("active");
+    }
+  </script>
 
 </body>
 </html>

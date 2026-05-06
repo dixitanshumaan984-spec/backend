@@ -3,95 +3,609 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Web Development Course</title>
-  <link rel="stylesheet" href="style.css">
-
+  <title>Web Development Course | Engineers Learning</title>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
+    :root {
+      --blue: #4a6cf7;
+      --blue-dark: #3358e8;
+      --navy: #1a1a2e;
+      --text: #333;
+      --muted: #777;
+      --bg: #f8f9fb;
+      --white: #ffffff;
+      --shadow: 0 4px 20px rgba(74,108,247,0.12);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
     body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      text-align: center;
+      font-family: "Inter", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      padding-bottom: 80px;
     }
 
-    header {
-      background-color: #333;
-      color: white;
-      padding: 15px;
+    /* ── NAVBAR ── */
+    nav {
+      background: var(--white);
+      padding: 14px 30px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+      position: sticky;
+      top: 0;
+      z-index: 100;
     }
 
-    .banner img {
+    .nav-brand {
+      font-family: "Sora", sans-serif;
+      font-weight: 800;
+      font-size: 18px;
+      color: var(--navy);
+      text-decoration: none;
+    }
+
+    .nav-brand span { color: var(--blue); }
+
+    .nav-back {
+      font-size: 13px;
+      color: var(--blue);
+      text-decoration: none;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: gap 0.2s;
+    }
+
+    .nav-back:hover { gap: 10px; }
+
+    /* ── TABS ── */
+    .tabs {
+      background: var(--white);
+      display: flex;
+      border-bottom: 2px solid #eee;
+      padding: 0 20px;
+      position: sticky;
+      top: 53px;
+      z-index: 99;
+      overflow-x: auto;
+    }
+
+    .tab {
+      padding: 14px 20px;
+      font-size: 14px;
+      font-weight: 600;
+      font-family: "Sora", sans-serif;
+      color: var(--muted);
+      cursor: pointer;
+      border-bottom: 3px solid transparent;
+      margin-bottom: -2px;
+      white-space: nowrap;
+      transition: all 0.2s;
+    }
+
+    .tab.active, .tab:hover {
+      color: var(--blue);
+      border-bottom-color: var(--blue);
+    }
+
+    /* ── HERO BANNER ── */
+    .hero {
+      position: relative;
+      height: 280px;
+      overflow: hidden;
+    }
+
+    .hero img {
       width: 100%;
-      height: 300px;
+      height: 100%;
       object-fit: cover;
     }
 
-    .course-img {
-      width: 200px;
-      margin: 10px;
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to right, rgba(26,26,46,0.85) 40%, rgba(74,108,247,0.3));
+      display: flex;
+      align-items: center;
+      padding: 30px 40px;
     }
 
-    .btn {
-      display: inline-block;
-      padding: 10px 20px;
-      background-color: blue;
+    .hero-text h1 {
+      font-family: "Sora", sans-serif;
+      font-size: 28px;
+      font-weight: 800;
       color: white;
-      text-decoration: none;
-      border-radius: 5px;
+      margin-bottom: 10px;
     }
 
-    .images {
-      margin-top: 20px;
+    .hero-text p {
+      color: rgba(255,255,255,0.8);
+      font-size: 14px;
+      max-width: 400px;
+      line-height: 1.6;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: var(--blue);
+      color: white;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 20px;
+      margin-bottom: 10px;
+      letter-spacing: 1px;
+      font-family: "Sora", sans-serif;
+    }
+
+    /* ── INFO GRID ── */
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      background: var(--white);
+      box-shadow: var(--shadow);
+    }
+
+    .info-box {
+      padding: 18px 10px;
+      text-align: center;
+      border-right: 1px solid #f0f0f0;
+    }
+
+    .info-box:last-child { border-right: none; }
+
+    .info-box strong {
+      display: block;
+      font-family: "Sora", sans-serif;
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--blue);
+      margin-bottom: 4px;
+    }
+
+    .info-box span {
+      font-size: 12px;
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    /* ── SECTIONS ── */
+    .section {
+      background: var(--white);
+      padding: 24px 24px;
+      margin-top: 12px;
+      border-radius: 12px;
+      margin-left: 12px;
+      margin-right: 12px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+
+    .section h3 {
+      font-family: "Sora", sans-serif;
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--navy);
+      margin-bottom: 16px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #f0f0f0;
+    }
+
+    .section p {
+      font-size: 14px;
+      color: #555;
+      line-height: 1.7;
+      margin-bottom: 16px;
+    }
+
+    /* ── FEATURES ── */
+    .features-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .feature {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
+      background: #f0f4ff;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--navy);
+    }
+
+    .feature-icon {
+      width: 28px;
+      height: 28px;
+      background: var(--blue);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 13px;
+      flex-shrink: 0;
+    }
+
+    /* ── TOPIC ICONS ── */
+    .topic-icons {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+      padding: 10px 0;
+    }
+
+    .topic-icon-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .topic-icon-item img {
+      width: 60px;
+      height: 60px;
+      object-fit: contain;
+      border-radius: 12px;
+      background: #f0f4ff;
+      padding: 8px;
+    }
+
+    .topic-icon-item span {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--navy);
+      font-family: "Sora", sans-serif;
+    }
+
+    /* ── STATS ── */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    .stat-box {
+      background: linear-gradient(135deg, var(--blue), var(--blue-dark));
+      padding: 20px 10px;
+      border-radius: 12px;
+      text-align: center;
+      color: white;
+      box-shadow: 0 4px 15px rgba(74,108,247,0.3);
+    }
+
+    .stat-box strong {
+      display: block;
+      font-family: "Sora", sans-serif;
+      font-size: 22px;
+      font-weight: 800;
+      margin-bottom: 4px;
+    }
+
+    .stat-box span {
+      font-size: 12px;
+      opacity: 0.85;
+    }
+
+    /* ── OFFERINGS ── */
+    .offerings-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .offer {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 16px;
+      background: #f8f9ff;
+      border-radius: 10px;
+      border-left: 3px solid var(--blue);
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--navy);
+      transition: all 0.2s;
+    }
+
+    .offer:hover {
+      background: #eef1ff;
+      transform: translateX(4px);
+    }
+
+    .offer-emoji { font-size: 20px; }
+
+    /* ── FAQ ── */
+    .faq-item {
+      border-bottom: 1px solid #f0f0f0;
+      padding: 14px 0;
+      cursor: pointer;
+    }
+
+    .faq-item:last-child { border-bottom: none; }
+
+    .faq-question {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--navy);
+      font-family: "Sora", sans-serif;
+    }
+
+    .faq-arrow {
+      font-size: 18px;
+      color: var(--blue);
+      transition: transform 0.3s;
+      font-weight: 400;
+    }
+
+    .faq-item.open .faq-arrow { transform: rotate(45deg); }
+
+    .faq-answer {
+      display: none;
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 10px;
+      line-height: 1.7;
+      padding-right: 20px;
+    }
+
+    /* ── INLINE BUY BUTTON ── */
+    .buy-section { margin: 12px; }
+
+    .buy-inline {
+      width: 100%;
+      padding: 16px;
+      background: linear-gradient(135deg, var(--blue), var(--blue-dark));
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 700;
+      font-family: "Sora", sans-serif;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(74,108,247,0.4);
+      transition: all 0.3s;
+      letter-spacing: 0.5px;
+    }
+
+    .buy-inline:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(74,108,247,0.5);
+    }
+
+    .buy-note {
+      text-align: center;
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 8px;
+    }
+
+    /* ── STICKY BUY BUTTON ── */
+    .buy-sticky {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: var(--white);
+      padding: 12px 20px;
+      box-shadow: 0 -4px 20px rgba(0,0,0,0.1);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      z-index: 200;
+    }
+
+    .sticky-price { font-family: "Sora", sans-serif; }
+
+    .sticky-price strong {
+      font-size: 22px;
+      color: var(--blue);
+      font-weight: 800;
+    }
+
+    .sticky-price span {
+      font-size: 12px;
+      color: var(--muted);
+      display: block;
+    }
+
+    .sticky-btn {
+      background: linear-gradient(135deg, var(--blue), var(--blue-dark));
+      color: white;
+      border: none;
+      padding: 12px 32px;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: 700;
+      font-family: "Sora", sans-serif;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(74,108,247,0.35);
+      transition: all 0.3s;
+    }
+
+    .sticky-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(74,108,247,0.5);
     }
   </style>
 </head>
 
 <body>
 
-  <header>
-    <h1>Web Development</h1>
-  </header>
+  <!-- NAVBAR -->
+  <nav>
+    <a href="index.html" class="nav-brand">Engineers<span>Learning</span></a>
+    <a href="index.html#courses" class="nav-back">← All Courses</a>
+  </nav>
 
-  <!-- Banner Image -->
-  <div class="banner">
-    <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085" alt="Web Development Banner">
+  <!-- TABS -->
+  <div class="tabs">
+    <div class="tab active" onclick="setTab(this)">Overview</div>
+    <div class="tab" onclick="setTab(this)">Curriculum</div>
+    <div class="tab" onclick="setTab(this)">Mentors</div>
+    <div class="tab" onclick="setTab(this)">Plans</div>
   </div>
 
-  <main>
-    <section>
-      <h2>About this course</h2>
-
-      <p>Learn Frontend Development with HTML, CSS, JavaScript, Tailwind CSS and React.</p>
-      <p>BackEnd Development with Node.js, Express, and MongoDB.</p>
-      <p>Industry level projects to build your portfolio.</p>
-
-      <!-- Course Images -->
-      <div class="images">
-        <img src="https://cdn-icons-png.flaticon.com/512/732/732212.png" alt="HTML" class="course-img">
-        <img src="https://cdn-icons-png.flaticon.com/512/732/732190.png" alt="CSS" class="course-img">
-        <img src="https://cdn-icons-png.flaticon.com/512/5968/5968292.png" alt="JavaScript" class="course-img">
-        <img src="https://cdn-icons-png.flaticon.com/512/919/919825.png" alt="NodeJS" class="course-img">
+  <!-- HERO BANNER -->
+  <div class="hero">
+    <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085" alt="Web Development Banner">
+    <div class="hero-overlay">
+      <div class="hero-text">
+        <div class="hero-badge">🌐 FULL STACK</div>
+        <h1>Web Development Course</h1>
+        <p>Master Frontend & Backend — HTML, CSS, JS, React, Node.js, Express, and MongoDB.</p>
       </div>
+    </div>
+  </div>
 
-      <h3>Price: ₹4499</h3>
+  <!-- INFO GRID -->
+  <div class="info-grid">
+    <div class="info-box"><strong>7 Mo.</strong><span>Duration</span></div>
+    <div class="info-box"><strong>Live</strong><span>Mode</span></div>
+    <div class="info-box"><strong>Hindi</strong><span>Language</span></div>
+    <div class="info-box"><strong>₹4499</strong><span>Price</span></div>
+  </div>
 
-      <a href="#" class="btn" onclick="handleEnroll()">Enroll</a>
-    </section>
-  </main>
-<script>
-function handleEnroll() {
-  const params = new URLSearchParams(window.location.search);
-  const user = params.get("user");
+  <!-- ABOUT -->
+  <div class="section">
+    <h3>About This Course</h3>
+    <p>Go from zero to full-stack developer. Learn Frontend with HTML, CSS, JavaScript, Tailwind CSS and React — then dive into Backend with Node.js, Express, and MongoDB. Build industry-level projects to grow your portfolio.</p>
+    <div class="features-grid">
+      <div class="feature"><div class="feature-icon">✔</div> Frontend + Backend</div>
+      <div class="feature"><div class="feature-icon">✔</div> React & Tailwind CSS</div>
+      <div class="feature"><div class="feature-icon">✔</div> Node.js & MongoDB</div>
+      <div class="feature"><div class="feature-icon">✔</div> Portfolio Projects</div>
+      <div class="feature"><div class="feature-icon">✔</div> Certificate</div>
+      <div class="feature"><div class="feature-icon">✔</div> Lifetime Access</div>
+    </div>
+  </div>
 
-  if (user) {
-    // ✅ If logged in → go to enroll page
-    window.location.href = "enroll.html?course=Web Development&user=" + user;
-  } else {
-    // ❌ If not logged in → redirect to login
-    alert("Please login first!");
-    window.location.href = "login.html";
-  }
-}
-</script>
+  <!-- TOPIC ICONS (original images preserved) -->
+  <div class="section">
+    <h3>Technologies Covered</h3>
+    <div class="topic-icons">
+      <div class="topic-icon-item">
+        <img src="https://cdn-icons-png.flaticon.com/512/732/732212.png" alt="HTML">
+        <span>HTML</span>
+      </div>
+      <div class="topic-icon-item">
+        <img src="https://cdn-icons-png.flaticon.com/512/732/732190.png" alt="CSS">
+        <span>CSS</span>
+      </div>
+      <div class="topic-icon-item">
+        <img src="https://cdn-icons-png.flaticon.com/512/5968/5968292.png" alt="JavaScript">
+        <span>JavaScript</span>
+      </div>
+      <div class="topic-icon-item">
+        <img src="https://cdn-icons-png.flaticon.com/512/919/919825.png" alt="NodeJS">
+        <span>Node.js</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- STATS -->
+  <div class="section">
+    <h3>Our Impact</h3>
+    <div class="stats-grid">
+      <div class="stat-box"><strong>350+</strong><span>Hiring Partners</span></div>
+      <div class="stat-box"><strong>180+</strong><span>Careers Placed</span></div>
+      <div class="stat-box"><strong>7 LPA</strong><span>Avg Package</span></div>
+    </div>
+  </div>
+
+  <!-- OFFERINGS -->
+  <div class="section">
+    <h3>Course Offerings</h3>
+    <div class="offerings-grid">
+      <div class="offer"><span class="offer-emoji">📘</span> Industry Curriculum</div>
+      <div class="offer"><span class="offer-emoji">⚛️</span> React & Tailwind</div>
+      <div class="offer"><span class="offer-emoji">📅</span> Weekend Live Classes</div>
+      <div class="offer"><span class="offer-emoji">🛠️</span> Real-World Projects</div>
+      <div class="offer"><span class="offer-emoji">🏆</span> Certificate</div>
+      <div class="offer"><span class="offer-emoji">💼</span> Job Assistance</div>
+    </div>
+  </div>
+
+  <!-- FAQ -->
+  <div class="section">
+    <h3>FAQs</h3>
+    <div class="faq-item" onclick="toggleFAQ(this)">
+      <div class="faq-question">What is this course about? <span class="faq-arrow">+</span></div>
+      <div class="faq-answer">This course covers full-stack web development — from HTML/CSS basics to building complete web apps with React, Node.js, and MongoDB.</div>
+    </div>
+    <div class="faq-item" onclick="toggleFAQ(this)">
+      <div class="faq-question">Is it beginner friendly? <span class="faq-arrow">+</span></div>
+      <div class="faq-answer">Yes, we start from the very basics and gradually move to full-stack development.</div>
+    </div>
+    <div class="faq-item" onclick="toggleFAQ(this)">
+      <div class="faq-question">What are prerequisites? <span class="faq-arrow">+</span></div>
+      <div class="faq-answer">No prior experience needed. A laptop and internet connection is all you need to get started.</div>
+    </div>
+    <div class="faq-item" onclick="toggleFAQ(this)">
+      <div class="faq-question">Will I get a certificate? <span class="faq-arrow">+</span></div>
+      <div class="faq-answer">Yes, after completing the course you receive a verified certificate you can share on LinkedIn.</div>
+    </div>
+  </div>
+
+  <!-- INLINE BUY BUTTON -->
+  <div class="buy-section">
+    <button class="buy-inline" onclick="goToEnroll()">🚀 Enroll Now — ₹4499 Only</button>
+    <p class="buy-note">✅ One-time payment &nbsp;·&nbsp; 🔒 Secure checkout &nbsp;·&nbsp; 💰 Money-back guarantee</p>
+  </div>
+
+  <!-- STICKY BUY BUTTON -->
+  <div class="buy-sticky">
+    <div class="sticky-price">
+      <strong>₹4499</strong>
+      <span>One-time payment</span>
+    </div>
+    <button class="sticky-btn" onclick="goToEnroll()">Buy Now →</button>
+  </div>
+
+  <script>
+    function goToEnroll() {
+      const params = new URLSearchParams(window.location.search);
+      const user = params.get("user");
+
+      if (user) {
+        window.location.href = "enroll.html?course=Web Development&user=" + user;
+      } else {
+        alert("Please login first!");
+        window.location.href = "login.html";
+      }
+    }
+
+    function toggleFAQ(element) {
+      const answer = element.querySelector(".faq-answer");
+      const isOpen = element.classList.contains("open");
+
+      document.querySelectorAll(".faq-item").forEach(item => {
+        item.classList.remove("open");
+        item.querySelector(".faq-answer").style.display = "none";
+      });
+
+      if (!isOpen) {
+        element.classList.add("open");
+        answer.style.display = "block";
+      }
+    }
+
+    function setTab(el) {
+      document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
+      el.classList.add("active");
+    }
+  </script>
+
 </body>
 </html>
