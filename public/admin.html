@@ -1,102 +1,491 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Admin Panel</title>
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Panel | Engineers Learning</title>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&display=swap" rel="stylesheet">
   <style>
-    body {
-      font-family: Arial;
-      background: #f5f5f5;
-      padding: 20px;
+    :root {
+      --accent: #4a6cf7;
+      --green: #22c55e;
+      --red: #ef4444;
+      --yellow: #f59e0b;
+      --text: #1e293b;
+      --muted: #64748b;
+      --border: #e2e8f0;
+      --bg: #f1f5f9;
+      --white: #ffffff;
     }
 
-    h2 {
-      text-align: center;
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: "Sora", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
     }
+
+    /* TOPBAR */
+    .topbar {
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      padding: 0 24px;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .topbar-brand {
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .topbar-brand span { color: var(--accent); }
+
+    .admin-avatar {
+      width: 32px;
+      height: 32px;
+      background: var(--accent);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 700;
+      color: white;
+    }
+
+    /* WRAPPER */
+    .wrapper {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 28px 16px 60px;
+    }
+
+    /* PAGE HEADER */
+    .page-header { margin-bottom: 24px; }
+
+    .page-header h1 {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+
+    .page-header p { font-size: 13px; color: var(--muted); }
+
+    /* STATS */
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .stat-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px 18px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .stat-icon { font-size: 22px; }
+
+    .stat-body strong {
+      display: block;
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--text);
+      margin-bottom: 2px;
+    }
+
+    .stat-body span { font-size: 12px; color: var(--muted); }
+
+    /* TOOLBAR */
+    .toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .toolbar-left {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .count-badge {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 9px;
+      background: #eff2ff;
+      color: var(--accent);
+      border-radius: 20px;
+      border: 1px solid #c7d2fe;
+    }
+
+    .filter-group { display: flex; gap: 6px; }
+
+    .filter-btn {
+      font-family: "Sora", sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: 7px;
+      border: 1px solid var(--border);
+      background: var(--white);
+      color: var(--muted);
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .filter-btn.active, .filter-btn:hover {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: white;
+    }
+
+    .refresh-btn {
+      font-family: "Sora", sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: 7px;
+      border: 1px solid var(--border);
+      background: var(--white);
+      color: var(--muted);
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .refresh-btn:hover { background: var(--bg); }
+    .refresh-icon { display: inline-block; transition: transform 0.4s; }
+    .refresh-btn.spinning .refresh-icon { transform: rotate(360deg); }
+
+    /* PAYMENT CARDS */
+    #payments { display: flex; flex-direction: column; gap: 10px; }
 
     .card {
-      background: white;
-      padding: 15px;
-      margin: 10px auto;
-      max-width: 500px;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 18px 20px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .card-left { display: flex; align-items: center; gap: 14px; }
+
+    .user-avatar {
+      width: 40px;
+      height: 40px;
       border-radius: 10px;
-      box-shadow: 0 3px 10px rgba(0,0,0,0.2);
-    }
-
-    button {
-      background: green;
+      background: var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      font-weight: 800;
       color: white;
-      padding: 8px 12px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
+      flex-shrink: 0;
     }
 
-    .approved {
-      color: green;
-      font-weight: bold;
+    .card-name  { font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 2px; }
+    .card-email { font-size: 12px; color: var(--muted); margin-bottom: 7px; }
+
+    .card-meta { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+
+    .meta-pill {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 3px 9px;
+      border-radius: 6px;
+    }
+
+    .pill-course { background: #eff2ff; color: var(--accent); }
+    .pill-txn    { background: var(--bg); color: var(--muted); font-family: monospace; }
+
+    .card-right {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 8px;
+    }
+
+    .status-badge {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 20px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    .status-pending     { background: #fff8e6; color: var(--yellow); }
+    .status-approved    { background: #f0fdf4; color: var(--green);  }
+    .status-disapproved { background: #fef2f2; color: var(--red);    }
+
+    .btn-group { display: flex; gap: 7px; }
+
+    .btn-approve, .btn-disapprove {
+      font-family: "Sora", sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 7px 14px;
+      border: none;
+      border-radius: 7px;
+      cursor: pointer;
+      transition: opacity 0.15s;
+    }
+
+    .btn-approve    { background: #f0fdf4; color: var(--green); }
+    .btn-disapprove { background: #fef2f2; color: var(--red);   }
+    .btn-approve:hover, .btn-disapprove:hover { opacity: 0.7; }
+
+    /* EMPTY / LOADING */
+    .empty-state {
+      text-align: center;
+      padding: 50px 20px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .loading-dots {
+      display: flex;
+      justify-content: center;
+      gap: 7px;
+      padding: 50px 0;
+    }
+
+    .loading-dots span {
+      width: 8px; height: 8px;
+      background: var(--accent);
+      border-radius: 50%;
+      animation: pulse 1.2s infinite;
+    }
+
+    .loading-dots span:nth-child(2) { animation-delay: 0.2s; }
+    .loading-dots span:nth-child(3) { animation-delay: 0.4s; }
+
+    @keyframes pulse {
+      0%, 80%, 100% { transform: scale(0.6); opacity: 0.4; }
+      40%            { transform: scale(1);   opacity: 1;   }
+    }
+
+    /* TOAST */
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 999;
+      padding: 12px 18px;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 600;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+      transform: translateY(60px);
+      opacity: 0;
+      transition: all 0.3s ease;
+      pointer-events: none;
+    }
+
+    .toast.show    { transform: translateY(0); opacity: 1; }
+    .toast.success { background: #f0fdf4; color: var(--green); border: 1px solid #bbf7d0; }
+    .toast.error   { background: #fef2f2; color: var(--red);   border: 1px solid #fecaca; }
+
+    @media (max-width: 580px) {
+      .stats-row { grid-template-columns: 1fr; }
+      .card      { grid-template-columns: 1fr; }
+      .card-right { flex-direction: row; justify-content: space-between; align-items: center; }
     }
   </style>
 </head>
 
 <body>
 
-<h2>Admin Payment Panel</h2>
+  <div class="topbar">
+    <div class="topbar-brand">Engineers<span>Learning</span> — Admin</div>
+    <div class="admin-avatar">A</div>
+  </div>
 
-<div id="payments"></div>
+  <div class="wrapper">
 
-<script>
+    <div class="page-header">
+      <h1>Payment Panel</h1>
+      <p>Review and manage all course enrollment payments</p>
+    </div>
 
-// 🔄 Load all payments
-async function loadPayments() {
-  const res = await fetch("/admin/payments");
-  const data = await res.json();
-
-  const container = document.getElementById("payments");
-  container.innerHTML = "";
-
-  data.forEach(p => {
-    container.innerHTML += `
-      <div class="card">
-        <p><b>Name:</b> ${p.name}</p>
-        <p><b>Email:</b> ${p.email}</p>
-        <p><b>Course:</b> ${p.course}</p>
-        <p><b>Txn ID:</b> ${p.transactionId}</p>
-        <p><b>Status:</b> ${p.status}</p>
-
-        ${
-          p.status === "pending"
-          ? `<button onclick="approve('${p._id}')">Approve</button>
-<button style="background:red;" onclick="disapprove('${p._id}')">Disapprove</button>`
-          : `<p class="approved">Approved ✅</p>`
-        }
+    <div class="stats-row">
+      <div class="stat-card">
+        <div class="stat-icon">⏳</div>
+        <div class="stat-body"><strong id="statPending">—</strong><span>Pending</span></div>
       </div>
-    `;
-  });
-}
+      <div class="stat-card">
+        <div class="stat-icon">✅</div>
+        <div class="stat-body"><strong id="statApproved">—</strong><span>Approved</span></div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">📦</div>
+        <div class="stat-body"><strong id="statTotal">—</strong><span>Total</span></div>
+      </div>
+    </div>
 
-// ✅ Approve function
-async function approve(id) {
-  await fetch("/admin/approve/" + id, {
-    method: "POST"
-  });
+    <div class="toolbar">
+      <div class="toolbar-left">
+        All Payments <span class="count-badge" id="countBadge">0</span>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <div class="filter-group">
+          <button class="filter-btn active" onclick="setFilter('all', this)">All</button>
+          <button class="filter-btn" onclick="setFilter('pending', this)">Pending</button>
+          <button class="filter-btn" onclick="setFilter('approved', this)">Approved</button>
+        </div>
+        <button class="refresh-btn" onclick="refreshPayments(this)">
+          <span class="refresh-icon">⟳</span> Refresh
+        </button>
+      </div>
+    </div>
 
-  alert("Payment Approved ✅");
-  loadPayments(); // refresh list
-}
+    <div id="payments">
+      <div class="loading-dots"><span></span><span></span><span></span></div>
+    </div>
 
-// Load on page open
-loadPayments();
-async function disapprove(id) {
-  await fetch("/admin/disapprove/" + id, {
-    method: "POST"
-  });
+  </div>
 
-  alert("Payment Disapproved ❌");
-  loadPayments();
-}
+  <div class="toast" id="toast"></div>
 
-</script>
+  <script>
+    let allPayments = [];
+    let currentFilter = 'all';
+
+    async function loadPayments() {
+      try {
+        const res = await fetch("/admin/payments");
+        allPayments = await res.json();
+        renderCards();
+        updateStats();
+      } catch (e) {
+        document.getElementById("payments").innerHTML =
+          `<div class="empty-state">⚠️ Could not load payments. Check your server connection.</div>`;
+      }
+    }
+
+    function renderCards() {
+      const container = document.getElementById("payments");
+      const filtered = currentFilter === 'all'
+        ? allPayments
+        : allPayments.filter(p => p.status === currentFilter);
+
+      document.getElementById("countBadge").textContent = filtered.length;
+
+      if (filtered.length === 0) {
+        container.innerHTML = `<div class="empty-state">📭 No ${currentFilter === 'all' ? '' : currentFilter} payments found.</div>`;
+        return;
+      }
+
+      container.innerHTML = '';
+      filtered.forEach(p => {
+        const initials = (p.name || '?')[0].toUpperCase();
+        const isPending = p.status === 'pending';
+        const statusClass = p.status === 'approved' ? 'status-approved'
+                          : p.status === 'disapproved' ? 'status-disapproved'
+                          : 'status-pending';
+        const statusLabel = p.status === 'approved'    ? '✅ Approved'
+                          : p.status === 'disapproved' ? '❌ Disapproved'
+                          : '⏳ Pending';
+
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.innerHTML = `
+          <div class="card-left">
+            <div class="user-avatar">${initials}</div>
+            <div>
+              <div class="card-name">${p.name}</div>
+              <div class="card-email">${p.email}</div>
+              <div class="card-meta">
+                <span class="meta-pill pill-course">📘 ${p.course}</span>
+                <span class="meta-pill pill-txn">🔑 ${p.transactionId}</span>
+              </div>
+            </div>
+          </div>
+          <div class="card-right">
+            <span class="status-badge ${statusClass}">${statusLabel}</span>
+            ${isPending ? `
+              <div class="btn-group">
+                <button class="btn-approve" onclick="approve('${p._id}')">✔ Approve</button>
+                <button class="btn-disapprove" onclick="disapprove('${p._id}')">✘ Reject</button>
+              </div>` : ''}
+          </div>`;
+        container.appendChild(card);
+      });
+    }
+
+    function updateStats() {
+      document.getElementById("statPending").textContent  = allPayments.filter(p => p.status === 'pending').length;
+      document.getElementById("statApproved").textContent = allPayments.filter(p => p.status === 'approved').length;
+      document.getElementById("statTotal").textContent    = allPayments.length;
+    }
+
+    async function approve(id) {
+      try {
+        await fetch("/admin/approve/" + id, { method: "POST" });
+        allPayments.find(x => x._id === id).status = 'approved';
+        renderCards(); updateStats();
+        showToast("✅ Payment approved!", "success");
+      } catch { showToast("Failed to approve.", "error"); }
+    }
+
+    async function disapprove(id) {
+      try {
+        await fetch("/admin/disapprove/" + id, { method: "POST" });
+        allPayments.find(x => x._id === id).status = 'disapproved';
+        renderCards(); updateStats();
+        showToast("❌ Payment rejected.", "error");
+      } catch { showToast("Failed to reject.", "error"); }
+    }
+
+    function setFilter(filter, btn) {
+      currentFilter = filter;
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      renderCards();
+    }
+
+    function refreshPayments(btn) {
+      btn.classList.add('spinning');
+      loadPayments().then(() => setTimeout(() => btn.classList.remove('spinning'), 500));
+    }
+
+    function showToast(msg, type) {
+      const t = document.getElementById("toast");
+      t.textContent = msg;
+      t.className = `toast ${type} show`;
+      setTimeout(() => t.classList.remove('show'), 3000);
+    }
+
+    loadPayments();
+  </script>
 
 </body>
 </html>
