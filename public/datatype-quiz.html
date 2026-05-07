@@ -2,211 +2,352 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Data Types Quiz</title>
+  <title>Data Types Quiz | Engineers Learning</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500&display=swap" rel="stylesheet">
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      background: #f5f5f5;
+    :root {
+      --blue: #4a6cf7;
+      --blue-dark: #3358e8;
+      --navy: #1a1a2e;
+      --green: #22c55e;
+      --red: #ef4444;
+      --yellow: #f59e0b;
+      --bg: #f8f9fb;
+      --white: #ffffff;
+      --border: #e2e8f0;
+      --muted: #64748b;
     }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: "Inter", sans-serif; background: var(--bg); color: var(--navy); padding-bottom: 80px; }
 
-    header {
-      background: #1e3c72;
-      color: white;
-      padding: 15px;
-      text-align: center;
-    }
+    /* NAV */
+    nav { background: var(--white); padding: 14px 24px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 8px rgba(0,0,0,0.07); position: sticky; top: 0; z-index: 100; }
+    .nav-brand { font-family: "Sora", sans-serif; font-weight: 800; font-size: 17px; color: var(--navy); text-decoration: none; }
+    .nav-brand span { color: var(--blue); }
+    .nav-back { font-size: 13px; color: var(--blue); text-decoration: none; font-weight: 600; }
 
-    .container {
-      max-width: 800px;
-      margin: auto;
-      padding: 20px;
-    }
+    /* HERO */
+    .hero { background: #eef1ff; padding: 28px 24px 24px; margin: 12px; border-radius: 16px; position: relative; overflow: hidden; }
+    .hero::after { content: ""; position: absolute; width: 180px; height: 180px; background: rgba(74,108,247,0.08); border-radius: 50%; top: -60px; right: -40px; }
+    .hero-tag { font-size: 11px; font-weight: 700; color: var(--blue); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 8px; font-family: "Sora", sans-serif; }
+    .hero h1 { font-family: "Sora", sans-serif; font-size: 30px; font-weight: 800; color: var(--navy); margin-bottom: 10px; line-height: 1.2; }
+    .hero p { font-size: 13px; color: var(--muted); line-height: 1.7; max-width: 320px; margin-bottom: 16px; }
+    .hero-pills { display: flex; gap: 8px; flex-wrap: wrap; }
+    .pill { background: var(--white); color: var(--blue); font-size: 12px; font-weight: 600; padding: 5px 12px; border-radius: 20px; border: 1px solid #c7d2fe; font-family: "Sora", sans-serif; }
 
-    .question {
-      background: white;
-      padding: 15px;
-      margin-bottom: 15px;
-      border-radius: 8px;
-    }
+    /* TIMER */
+    .timer-card { background: var(--white); margin: 12px; border-radius: 14px; padding: 14px 20px; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 2px 10px rgba(0,0,0,0.06); border: 1.5px solid var(--border); }
+    .timer-left { display: flex; align-items: center; gap: 10px; }
+    .timer-label { font-size: 12px; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; display: block; }
+    #timerDisplay { font-family: "Sora", sans-serif; font-size: 26px; font-weight: 800; color: var(--blue); }
+    #timerDisplay.warning { color: var(--yellow); }
+    #timerDisplay.danger { color: var(--red); animation: blink 0.6s infinite; }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.4} }
+    .progress-wrap { flex: 1; margin-left: 20px; }
+    .progress-info { display: flex; justify-content: space-between; font-size: 12px; color: var(--muted); font-weight: 600; margin-bottom: 6px; }
+    .progress-bar { height: 6px; background: var(--border); border-radius: 10px; overflow: hidden; }
+    .progress-fill { height: 100%; background: linear-gradient(90deg, var(--blue), var(--blue-dark)); border-radius: 10px; transition: width 0.3s; width: 0%; }
 
-    .option {
-      display: block;
-      margin: 8px 0;
-      padding: 8px;
-      background: #eee;
-      border-radius: 5px;
-      cursor: pointer;
-    }
+    /* QUESTIONS */
+    .container { max-width: 760px; margin: 0 auto; padding: 0 12px; }
+    .section-title { font-family: "Sora", sans-serif; font-size: 18px; font-weight: 800; color: var(--navy); margin: 20px 0 12px; }
 
-    .option:hover {
-      background: #ddd;
-    }
+    .question-card { background: var(--white); border-radius: 14px; padding: 20px; margin-bottom: 12px; border: 1.5px solid var(--border); box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
+    .question-header { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 14px; }
+    .q-num { width: 28px; height: 28px; min-width: 28px; background: linear-gradient(135deg, var(--blue), var(--blue-dark)); color: white; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 800; font-family: "Sora", sans-serif; }
+    .q-text { font-size: 14px; font-weight: 600; color: var(--navy); font-family: "Sora", sans-serif; line-height: 1.5; padding-top: 4px; }
+    .options { display: flex; flex-direction: column; gap: 8px; }
+    .opt { display: flex; align-items: center; gap: 10px; padding: 10px 14px; border-radius: 10px; border: 1.5px solid var(--border); cursor: pointer; font-size: 13px; color: #555; background: #fafafa; transition: all 0.2s; }
+    .opt:hover { border-color: var(--blue); background: #f0f4ff; color: var(--navy); }
+    .opt input { display: none; }
+    .opt-dot { width: 18px; height: 18px; min-width: 18px; border-radius: 50%; border: 2px solid #ccc; display: flex; align-items: center; justify-content: center; font-size: 10px; transition: all 0.2s; }
+    .opt.selected { border-color: var(--blue); background: #eff2ff; color: var(--navy); font-weight: 600; }
+    .opt.selected .opt-dot { background: var(--blue); border-color: var(--blue); color: white; }
+    .opt.correct { border-color: var(--green); background: #f0fdf4; color: #166534; font-weight: 600; }
+    .opt.correct .opt-dot { background: var(--green); border-color: var(--green); color: white; }
+    .opt.wrong { border-color: var(--red); background: #fef2f2; color: #991b1b; font-weight: 600; }
+    .opt.wrong .opt-dot { background: var(--red); border-color: var(--red); color: white; }
 
-    button {
-      padding: 10px 15px;
-      background: #1e3c72;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
+    /* STICKY SUBMIT */
+    .submit-bar { position: fixed; bottom: 0; left: 0; width: 100%; background: var(--white); padding: 12px 20px; box-shadow: 0 -4px 16px rgba(0,0,0,0.08); display: flex; justify-content: center; z-index: 50; }
+    .submit-btn { background: linear-gradient(135deg, var(--blue), var(--blue-dark)); color: white; border: none; padding: 13px 56px; border-radius: 10px; font-size: 15px; font-weight: 700; font-family: "Sora", sans-serif; cursor: pointer; box-shadow: 0 4px 14px rgba(74,108,247,0.35); transition: all 0.3s; }
+    .submit-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(74,108,247,0.5); }
 
-    #result {
-      font-size: 20px;
-      margin-top: 20px;
-      text-align: center;
-    }
+    /* RESULT OVERLAY */
+    #resultScreen { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.55); z-index: 200; align-items: center; justify-content: center; padding: 20px; }
+    #resultScreen.show { display: flex; }
+    .result-card { background: var(--white); border-radius: 20px; padding: 36px 28px; max-width: 380px; width: 100%; text-align: center; box-shadow: 0 20px 60px rgba(0,0,0,0.2); animation: popIn 0.35s ease; }
+    @keyframes popIn { from{transform:scale(0.85);opacity:0} to{transform:scale(1);opacity:1} }
+    .result-emoji { font-size: 52px; margin-bottom: 12px; }
+    .result-title { font-family: "Sora", sans-serif; font-size: 22px; font-weight: 800; margin-bottom: 16px; }
+    .score-ring { width: 110px; height: 110px; border-radius: 50%; border: 6px solid var(--blue); background: #eff2ff; display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 0 auto 18px; }
+    .score-ring.excellent { border-color: var(--green); background: #f0fdf4; }
+    .score-ring.average   { border-color: var(--yellow); background: #fffbeb; }
+    .score-ring.poor      { border-color: var(--red); background: #fef2f2; }
+    .score-big { font-family: "Sora", sans-serif; font-size: 30px; font-weight: 800; }
+    .score-of  { font-size: 11px; color: var(--muted); }
+    .result-stats { display: flex; justify-content: center; gap: 24px; margin-bottom: 14px; }
+    .rst strong { display: block; font-family: "Sora", sans-serif; font-size: 20px; font-weight: 800; }
+    .rst span   { font-size: 12px; color: var(--muted); }
+    .rst.c strong { color: var(--green); }
+    .rst.w strong { color: var(--red); }
+    .rst.t strong { color: var(--blue); }
+    .result-msg { font-size: 13px; color: var(--muted); margin-bottom: 22px; line-height: 1.6; }
+    .btn-retry  { width: 100%; padding: 12px; background: linear-gradient(135deg, var(--blue), var(--blue-dark)); color: white; border: none; border-radius: 10px; font-size: 14px; font-weight: 700; font-family: "Sora", sans-serif; cursor: pointer; margin-bottom: 8px; transition: opacity 0.2s; }
+    .btn-retry:hover { opacity: 0.9; }
+    .btn-review { width: 100%; padding: 11px; background: #f0f4ff; color: var(--blue); border: 2px solid var(--blue); border-radius: 10px; font-size: 14px; font-weight: 700; font-family: "Sora", sans-serif; cursor: pointer; transition: all 0.2s; }
+    .btn-review:hover { background: var(--blue); color: white; }
   </style>
 </head>
-
 <body>
 
-<header>
-  <h1>Data Types Quiz</h1>
-</header>
+  <nav>
+    <a href="index.html" class="nav-brand">Engineers<span>Learning</span></a>
+    <a href="javascript:history.back()" class="nav-back">← Go Back</a>
+  </nav>
 
-<div class="container">
+  <div class="container">
 
-  <form method="POST" action="/submit-quiz">
+    <!-- HERO -->
+    <div class="hero">
+      <div class="hero-tag">C Programming</div>
+      <h1>Data Types<br>Quiz</h1>
+      <p>Test your knowledge of C data types. Make sure you've watched the video before attempting.</p>
+      <div class="hero-pills">
+        <span class="pill">📝 10 Questions</span>
+        <span class="pill">⏱ 5 Minutes</span>
+        <span class="pill">🏆 1 Mark Each</span>
+      </div>
+    </div>
+
+    <!-- TIMER + PROGRESS -->
+    <div class="timer-card">
+      <div class="timer-left">
+        <span style="font-size:22px;">⏱</span>
+        <div>
+          <span class="timer-label">Time Left</span>
+          <div id="timerDisplay">05:00</div>
+        </div>
+      </div>
+      <div class="progress-wrap">
+        <div class="progress-info">
+          <span id="progressText">0 of 10</span>
+          <span id="progressPct">0%</span>
+        </div>
+        <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+      </div>
+    </div>
+
+    <div class="section-title">Questions</div>
 
     <!-- Q1 -->
-    <div class="question">
-      <p>1. Which data type is used to store integers?</p>
-      <label class="option"><input type="radio" name="q1" value="a"> float</label>
-      <label class="option"><input type="radio" name="q1" value="b"> int</label>
-      <label class="option"><input type="radio" name="q1" value="c"> char</label>
+    <div class="question-card">
+      <div class="question-header"><div class="q-num">1</div><div class="q-text">Which data type is used to store integers?</div></div>
+      <div class="options">
+        <label class="opt" onclick="pick(this,'q1')"><input type="radio" name="q1" value="a"><div class="opt-dot"></div> float</label>
+        <label class="opt" onclick="pick(this,'q1')"><input type="radio" name="q1" value="b"><div class="opt-dot"></div> int</label>
+        <label class="opt" onclick="pick(this,'q1')"><input type="radio" name="q1" value="c"><div class="opt-dot"></div> char</label>
+      </div>
     </div>
 
     <!-- Q2 -->
-    <div class="question">
-      <p>2. Which is used for decimal values?</p>
-      <label class="option"><input type="radio" name="q2" value="a"> int</label>
-      <label class="option"><input type="radio" name="q2" value="b"> float</label>
-      <label class="option"><input type="radio" name="q2" value="c"> char</label>
+    <div class="question-card">
+      <div class="question-header"><div class="q-num">2</div><div class="q-text">Which is used for decimal values?</div></div>
+      <div class="options">
+        <label class="opt" onclick="pick(this,'q2')"><input type="radio" name="q2" value="a"><div class="opt-dot"></div> int</label>
+        <label class="opt" onclick="pick(this,'q2')"><input type="radio" name="q2" value="b"><div class="opt-dot"></div> float</label>
+        <label class="opt" onclick="pick(this,'q2')"><input type="radio" name="q2" value="c"><div class="opt-dot"></div> char</label>
+      </div>
     </div>
 
     <!-- Q3 -->
-    <div class="question">
-      <p>3. Size of int (typically)?</p>
-      <label class="option"><input type="radio" name="q3" value="a"> 2 bytes</label>
-      <label class="option"><input type="radio" name="q3" value="b"> 4 bytes</label>
-      <label class="option"><input type="radio" name="q3" value="c"> 8 bytes</label>
+    <div class="question-card">
+      <div class="question-header"><div class="q-num">3</div><div class="q-text">Size of int (typically)?</div></div>
+      <div class="options">
+        <label class="opt" onclick="pick(this,'q3')"><input type="radio" name="q3" value="a"><div class="opt-dot"></div> 2 bytes</label>
+        <label class="opt" onclick="pick(this,'q3')"><input type="radio" name="q3" value="b"><div class="opt-dot"></div> 4 bytes</label>
+        <label class="opt" onclick="pick(this,'q3')"><input type="radio" name="q3" value="c"><div class="opt-dot"></div> 8 bytes</label>
+      </div>
     </div>
 
     <!-- Q4 -->
-    <div class="question">
-      <p>4. Which stores a single character?</p>
-      <label class="option"><input type="radio" name="q4" value="a"> char</label>
-      <label class="option"><input type="radio" name="q4" value="b"> int</label>
-      <label class="option"><input type="radio" name="q4" value="c"> float</label>
+    <div class="question-card">
+      <div class="question-header"><div class="q-num">4</div><div class="q-text">Which stores a single character?</div></div>
+      <div class="options">
+        <label class="opt" onclick="pick(this,'q4')"><input type="radio" name="q4" value="a"><div class="opt-dot"></div> char</label>
+        <label class="opt" onclick="pick(this,'q4')"><input type="radio" name="q4" value="b"><div class="opt-dot"></div> int</label>
+        <label class="opt" onclick="pick(this,'q4')"><input type="radio" name="q4" value="c"><div class="opt-dot"></div> float</label>
+      </div>
     </div>
 
     <!-- Q5 -->
-    <div class="question">
-      <p>5. Which is double precision?</p>
-      <label class="option"><input type="radio" name="q5" value="a"> float</label>
-      <label class="option"><input type="radio" name="q5" value="b"> double</label>
-      <label class="option"><input type="radio" name="q5" value="c"> int</label>
+    <div class="question-card">
+      <div class="question-header"><div class="q-num">5</div><div class="q-text">Which is double precision?</div></div>
+      <div class="options">
+        <label class="opt" onclick="pick(this,'q5')"><input type="radio" name="q5" value="a"><div class="opt-dot"></div> float</label>
+        <label class="opt" onclick="pick(this,'q5')"><input type="radio" name="q5" value="b"><div class="opt-dot"></div> double</label>
+        <label class="opt" onclick="pick(this,'q5')"><input type="radio" name="q5" value="c"><div class="opt-dot"></div> int</label>
+      </div>
     </div>
 
     <!-- Q6 -->
-    <div class="question">
-      <p>6. Format specifier for int?</p>
-      <label class="option"><input type="radio" name="q6" value="a"> %f</label>
-      <label class="option"><input type="radio" name="q6" value="b"> %d</label>
-      <label class="option"><input type="radio" name="q6" value="c"> %c</label>
+    <div class="question-card">
+      <div class="question-header"><div class="q-num">6</div><div class="q-text">Format specifier for int?</div></div>
+      <div class="options">
+        <label class="opt" onclick="pick(this,'q6')"><input type="radio" name="q6" value="a"><div class="opt-dot"></div> %f</label>
+        <label class="opt" onclick="pick(this,'q6')"><input type="radio" name="q6" value="b"><div class="opt-dot"></div> %d</label>
+        <label class="opt" onclick="pick(this,'q6')"><input type="radio" name="q6" value="c"><div class="opt-dot"></div> %c</label>
+      </div>
     </div>
 
     <!-- Q7 -->
-    <div class="question">
-      <p>7. Which is NOT a basic data type?</p>
-      <label class="option"><input type="radio" name="q7" value="a"> int</label>
-      <label class="option"><input type="radio" name="q7" value="b"> array</label>
-      <label class="option"><input type="radio" name="q7" value="c"> float</label>
+    <div class="question-card">
+      <div class="question-header"><div class="q-num">7</div><div class="q-text">Which is NOT a basic data type?</div></div>
+      <div class="options">
+        <label class="opt" onclick="pick(this,'q7')"><input type="radio" name="q7" value="a"><div class="opt-dot"></div> int</label>
+        <label class="opt" onclick="pick(this,'q7')"><input type="radio" name="q7" value="b"><div class="opt-dot"></div> array</label>
+        <label class="opt" onclick="pick(this,'q7')"><input type="radio" name="q7" value="c"><div class="opt-dot"></div> float</label>
+      </div>
     </div>
 
     <!-- Q8 -->
-    <div class="question">
-      <p>8. Which keyword is used for character?</p>
-      <label class="option"><input type="radio" name="q8" value="a"> char</label>
-      <label class="option"><input type="radio" name="q8" value="b"> int</label>
-      <label class="option"><input type="radio" name="q8" value="c"> float</label>
+    <div class="question-card">
+      <div class="question-header"><div class="q-num">8</div><div class="q-text">Which keyword is used for character?</div></div>
+      <div class="options">
+        <label class="opt" onclick="pick(this,'q8')"><input type="radio" name="q8" value="a"><div class="opt-dot"></div> char</label>
+        <label class="opt" onclick="pick(this,'q8')"><input type="radio" name="q8" value="b"><div class="opt-dot"></div> int</label>
+        <label class="opt" onclick="pick(this,'q8')"><input type="radio" name="q8" value="c"><div class="opt-dot"></div> float</label>
+      </div>
     </div>
 
     <!-- Q9 -->
-    <div class="question">
-      <p>9. C is a ____ typed language.</p>
-      <label class="option"><input type="radio" name="q9" value="a"> dynamically</label>
-      <label class="option"><input type="radio" name="q9" value="b"> statically</label>
-      <label class="option"><input type="radio" name="q9" value="c"> loosely</label>
+    <div class="question-card">
+      <div class="question-header"><div class="q-num">9</div><div class="q-text">C is a ____ typed language.</div></div>
+      <div class="options">
+        <label class="opt" onclick="pick(this,'q9')"><input type="radio" name="q9" value="a"><div class="opt-dot"></div> dynamically</label>
+        <label class="opt" onclick="pick(this,'q9')"><input type="radio" name="q9" value="b"><div class="opt-dot"></div> statically</label>
+        <label class="opt" onclick="pick(this,'q9')"><input type="radio" name="q9" value="c"><div class="opt-dot"></div> loosely</label>
+      </div>
     </div>
 
     <!-- Q10 -->
-    <div class="question">
-      <p>10. Which data type stores large decimal numbers?</p>
-      <label class="option"><input type="radio" name="q10" value="a"> float</label>
-      <label class="option"><input type="radio" name="q10" value="b"> double</label>
-      <label class="option"><input type="radio" name="q10" value="c"> char</label>
+    <div class="question-card">
+      <div class="question-header"><div class="q-num">10</div><div class="q-text">Which data type stores large decimal numbers?</div></div>
+      <div class="options">
+        <label class="opt" onclick="pick(this,'q10')"><input type="radio" name="q10" value="a"><div class="opt-dot"></div> float</label>
+        <label class="opt" onclick="pick(this,'q10')"><input type="radio" name="q10" value="b"><div class="opt-dot"></div> double</label>
+        <label class="opt" onclick="pick(this,'q10')"><input type="radio" name="q10" value="c"><div class="opt-dot"></div> char</label>
+      </div>
     </div>
 
-    <button type="button" onclick="checkAnswers()">Submit</button>
+  </div>
 
-  </form>
+  <!-- SUBMIT -->
+  <div class="submit-bar">
+    <button class="submit-btn" onclick="submitQuiz()">Submit Quiz →</button>
+  </div>
 
-  <div id="result"></div>
+  <!-- RESULT -->
+  <div id="resultScreen">
+    <div class="result-card">
+      <div class="result-emoji" id="rEmoji">🎉</div>
+      <div class="result-title" id="rTitle">Quiz Complete!</div>
+      <div class="score-ring" id="scoreRing">
+        <div class="score-big" id="scoreBig">0</div>
+        <div class="score-of">out of 10</div>
+      </div>
+      <div class="result-stats">
+        <div class="rst c"><strong id="rCorrect">0</strong><span>Correct</span></div>
+        <div class="rst w"><strong id="rWrong">0</strong><span>Wrong</span></div>
+        <div class="rst t"><strong id="rTime">0s</strong><span>Time</span></div>
+      </div>
+      <p class="result-msg" id="rMsg"></p>
+      <button class="btn-retry" onclick="location.reload()">🔄 Try Again</button>
+      <button class="btn-review" onclick="closeResult()">👁 Review Answers</button>
+    </div>
+  </div>
 
-</div>
+  <script>
+    const answers = { q1:"b", q2:"b", q3:"b", q4:"a", q5:"b", q6:"b", q7:"b", q8:"a", q9:"b", q10:"b" };
+    let timeLeft = 300, timerInterval, startTime = Date.now(), submitted = false;
 
-<script>
-function checkAnswers() {
-  let score = 0;
+    // Timer
+    timerInterval = setInterval(() => {
+      timeLeft--;
+      const m = Math.floor(timeLeft / 60), s = timeLeft % 60;
+      const el = document.getElementById("timerDisplay");
+      el.textContent = `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+      el.className = timeLeft <= 30 ? 'danger' : timeLeft <= 60 ? 'warning' : '';
+      if (timeLeft <= 0) { clearInterval(timerInterval); submitQuiz(true); }
+    }, 1000);
 
-  const answers = {
-    q1: "b",
-    q2: "b",
-    q3: "b",
-    q4: "a",
-    q5: "b",
-    q6: "b",
-    q7: "b",
-    q8: "a",
-    q9: "b",
-    q10: "b"
-  };
-
-  for (let q in answers) {
-    let options = document.querySelectorAll(`input[name="${q}"]`);
-
-    options.forEach(option => {
-      let label = option.parentElement;
-
-      // Reset colors
-      label.style.background = "#eee";
-
-      // Correct answer → GREEN
-      if (option.value === answers[q]) {
-        label.style.background = "#a5d6a7"; // green
-      }
-
-      // User selected wrong → RED
-      if (option.checked && option.value !== answers[q]) {
-        label.style.background = "#ef9a9a"; // red
-      }
-    });
-
-    let selected = document.querySelector(`input[name="${q}"]:checked`);
-    if (selected && selected.value === answers[q]) {
-      score++;
+    // Pick option
+    function pick(lbl, q) {
+      lbl.closest('.options').querySelectorAll('.opt').forEach(o => {
+        o.classList.remove('selected');
+        o.querySelector('.opt-dot').textContent = '';
+      });
+      lbl.classList.add('selected');
+      lbl.querySelector('input').checked = true;
+      lbl.querySelector('.opt-dot').textContent = '✓';
+      // Progress
+      let done = Object.keys(answers).filter(q => document.querySelector(`input[name="${q}"]:checked`)).length;
+      let pct = Math.round(done / 10 * 100);
+      document.getElementById("progressFill").style.width = pct + '%';
+      document.getElementById("progressText").textContent = `${done} of 10`;
+      document.getElementById("progressPct").textContent = pct + '%';
     }
-  }
 
-  document.getElementById("result").innerHTML =
-    "Your Score: " + score + "/10";
-}
-</script>
+    // Submit
+    function submitQuiz(auto = false) {
+      if (submitted) return;
+      if (!auto) {
+        let missing = Object.keys(answers).filter(q => !document.querySelector(`input[name="${q}"]:checked`)).length;
+        if (missing > 0) { alert(`⚠️ Please answer all questions! (${missing} remaining)`); return; }
+      }
+      submitted = true;
+      clearInterval(timerInterval);
+      let score = 0;
+      const timeTaken = Math.round((Date.now() - startTime) / 1000);
+      Object.keys(answers).forEach(q => {
+        const sel = document.querySelector(`input[name="${q}"]:checked`);
+        document.querySelectorAll(`input[name="${q}"]`).forEach(opt => {
+          const lbl = opt.closest('.opt');
+          lbl.onclick = null;
+          if (opt.value === answers[q]) { lbl.classList.add('correct'); lbl.querySelector('.opt-dot').textContent = '✓'; }
+          if (opt.checked && opt.value !== answers[q]) { lbl.classList.add('wrong'); lbl.querySelector('.opt-dot').textContent = '✗'; }
+        });
+        if (sel && sel.value === answers[q]) score++;
+      });
+      showResult(score, timeTaken);
+    }
+
+    function showResult(score, time) {
+      const configs = [
+        { min:10, emoji:'🏆', title:'Perfect Score!',    msg:'Outstanding! Every answer correct!',                ring:'excellent' },
+        { min:8,  emoji:'🎉', title:'Excellent!',        msg:'Great job! Strong understanding of data types.',    ring:'excellent' },
+        { min:6,  emoji:'👍', title:'Good Job!',         msg:'Good effort! Review the ones you missed.',          ring:'' },
+        { min:4,  emoji:'📚', title:'Keep Practicing!',  msg:'More practice needed. Revisit the chapter.',       ring:'average' },
+        { min:0,  emoji:'💪', title:"Don't Give Up!",    msg:'Keep studying! Try watching the video again.',      ring:'poor' }
+      ];
+      const c = configs.find(x => score >= x.min);
+      document.getElementById("rEmoji").textContent = c.emoji;
+      document.getElementById("rTitle").textContent = c.title;
+      document.getElementById("scoreBig").textContent = score;
+      document.getElementById("rCorrect").textContent = score;
+      document.getElementById("rWrong").textContent = 10 - score;
+      document.getElementById("rTime").textContent = time + 's';
+      document.getElementById("rMsg").textContent = c.msg;
+      document.getElementById("scoreRing").className = `score-ring ${c.ring}`;
+      document.getElementById("resultScreen").classList.add("show");
+    }
+
+    function closeResult() {
+      document.getElementById("resultScreen").classList.remove("show");
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  </script>
 
 </body>
 </html>
