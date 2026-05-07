@@ -3,84 +3,355 @@
 <head>
   <meta charset="UTF-8">
   <title>Sign Up | Engineers Learning</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
     body {
-      margin: 0;
-      font-family: "Segoe UI", sans-serif;
+      font-family: "Inter", "Segoe UI", sans-serif;
+      min-height: 100vh;
       display: flex;
-      justify-content: center;
       align-items: center;
-      height: 100vh;
-      background: linear-gradient(-45deg, #1e3c72, #2a5298, #00c6ff);
-      color: white;
+      justify-content: center;
+      background: #e8edf5;
     }
 
-    .container {
-      background: white;
-      color: black;
-      padding: 30px;
-      border-radius: 10px;
-      width: 320px;
+    /* ── Outer card ── */
+    .card {
+      display: flex;
+      width: min(900px, 95vw);
+      min-height: 560px;
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 24px 60px rgba(0,0,0,.18);
+    }
+
+    /* ── LEFT PANEL ── */
+    .left {
+      flex: 0 0 45%;
+      background: linear-gradient(145deg, #1565c0 0%, #1e88e5 55%, #42a5f5 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 48px 36px;
+      color: #fff;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* subtle decorative circles */
+    .left::before, .left::after {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+      opacity: .12;
+      background: #fff;
+    }
+    .left::before { width: 280px; height: 280px; top: -80px; left: -80px; }
+    .left::after  { width: 200px; height: 200px; bottom: -60px; right: -60px; }
+
+    /* icon graphic */
+    .icon-wrap {
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      background: rgba(255,255,255,.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 28px;
+      position: relative;
+    }
+    .icon-wrap svg { width: 58px; height: 58px; }
+
+    .left h2 {
+      font-size: 1.75rem;
+      font-weight: 700;
+      letter-spacing: -.3px;
+      margin-bottom: 10px;
       text-align: center;
     }
-
-    input {
-      width: 100%;
-      padding: 10px;
-      margin: 10px 0;
-      border-radius: 6px;
-      border: 1px solid #ccc;
+    .left p {
+      font-size: .88rem;
+      opacity: .88;
+      text-align: center;
+      line-height: 1.6;
+      max-width: 240px;
+      margin-bottom: 32px;
     }
 
-    button {
+    /* badges */
+    .badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+    }
+    .badge {
+      background: rgba(255,255,255,.18);
+      border: 1px solid rgba(255,255,255,.3);
+      border-radius: 20px;
+      padding: 6px 14px;
+      font-size: .78rem;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* ── RIGHT PANEL ── */
+    .right {
+      flex: 1;
+      background: #f5f7fb;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 48px 44px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 28px;
+    }
+    .brand-logo {
+      width: 38px; height: 38px;
+      background: #1e88e5;
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      color: #fff; font-weight: 700; font-size: .85rem;
+      flex-shrink: 0;
+    }
+    .brand-name { font-size: 1rem; font-weight: 600; color: #1a1a2e; }
+
+    .right h1 {
+      font-size: 1.65rem;
+      font-weight: 700;
+      color: #1a1a2e;
+      margin-bottom: 4px;
+    }
+    .tagline {
+      font-size: .82rem;
+      color: #6b7280;
+      margin-bottom: 26px;
+      font-style: italic;
+    }
+
+    /* form elements */
+    .field { margin-bottom: 14px; }
+    .field label {
+      display: block;
+      font-size: .8rem;
+      font-weight: 600;
+      color: #374151;
+      margin-bottom: 6px;
+    }
+    .field input {
       width: 100%;
-      padding: 10px;
-      background: #2a5298;
-      color: white;
+      padding: 11px 14px;
+      border: 1.5px solid #d1d5db;
+      border-radius: 8px;
+      font-size: .9rem;
+      font-family: inherit;
+      background: #fff;
+      color: #111;
+      transition: border-color .2s, box-shadow .2s;
+      outline: none;
+    }
+    .field input:focus {
+      border-color: #1e88e5;
+      box-shadow: 0 0 0 3px rgba(30,136,229,.12);
+    }
+
+    /* primary button */
+    .btn-primary {
+      width: 100%;
+      padding: 12px;
+      background: #1e88e5;
+      color: #fff;
       border: none;
-      border-radius: 6px;
+      border-radius: 8px;
+      font-size: .95rem;
+      font-weight: 600;
+      font-family: inherit;
       cursor: pointer;
+      transition: background .2s, transform .1s;
+      margin-top: 4px;
     }
+    .btn-primary:hover  { background: #1565c0; }
+    .btn-primary:active { transform: scale(.99); }
 
-    button:hover {
-      background: #1e3c72;
+    /* divider */
+    .divider {
+      text-align: center;
+      color: #9ca3af;
+      font-size: .8rem;
+      margin: 12px 0;
+      position: relative;
     }
+    .divider::before, .divider::after {
+      content: "";
+      position: absolute;
+      top: 50%; width: 42%;
+      height: 1px;
+      background: #e5e7eb;
+    }
+    .divider::before { left: 0; }
+    .divider::after  { right: 0; }
 
+    /* secondary button */
+    .btn-secondary {
+      width: 100%;
+      padding: 11px;
+      background: transparent;
+      color: #6b7280;
+      border: 1.5px solid #d1d5db;
+      border-radius: 8px;
+      font-size: .9rem;
+      font-family: inherit;
+      cursor: pointer;
+      transition: border-color .2s, color .2s;
+    }
+    .btn-secondary:hover { border-color: #1e88e5; color: #1e88e5; }
+
+    .back-link {
+      text-align: center;
+      margin-top: 14px;
+      font-size: .8rem;
+      color: #9ca3af;
+    }
+    .back-link a { color: #1e88e5; text-decoration: none; font-weight: 500; }
+    .back-link a:hover { text-decoration: underline; }
+
+    /* message */
     #message {
       margin-top: 10px;
-      font-size: 14px;
+      font-size: .83rem;
+      text-align: center;
+      min-height: 20px;
+      color: #374151;
+    }
+
+    /* OTP note */
+    .otp-note {
+      font-size: .8rem;
+      color: #6b7280;
+      text-align: center;
+      margin-bottom: 14px;
+    }
+    .otp-note span { color: #1e88e5; font-weight: 600; }
+
+    /* step indicator */
+    .steps {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 22px;
+    }
+    .step {
+      flex: 1; height: 4px; border-radius: 4px;
+      background: #e5e7eb;
+      transition: background .4s;
+    }
+    .step.active { background: #1e88e5; }
+
+    /* responsive */
+    @media (max-width: 620px) {
+      .left { display: none; }
+      .right { padding: 36px 28px; }
     }
   </style>
 </head>
 
 <body>
 
-<div class="container">
-  <h2>Sign Up</h2>
+<div class="card">
 
-  <!-- STEP 1: Signup Form -->
-  <form id="signupForm">
-    <input type="text" name="username" placeholder="Enter Name" required>
-    <input type="email" name="email" id="email" placeholder="Enter Email" required>
-    <input type="password" name="password" placeholder="Enter Password" required>
+  <!-- ═══ LEFT PANEL ═══ -->
+  <div class="left">
+    <!-- book/code icon -->
+    <div class="icon-wrap">
+      <svg viewBox="0 0 58 58" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="6" y="10" width="20" height="26" rx="3" fill="rgba(255,255,255,0.9)"/>
+        <rect x="32" y="10" width="20" height="26" rx="3" fill="rgba(255,255,255,0.9)"/>
+        <path d="M26 8 L29 4 L32 8" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <text x="11" y="44" fill="rgba(30,136,229,0.9)" font-size="10" font-family="monospace" font-weight="bold">&lt;/&gt;</text>
+      </svg>
+    </div>
 
-    <button type="submit">Send OTP</button>
-  </form>
+    <h2>Join Us Today!</h2>
+    <p>Start your engineering learning journey. Build. Code. Innovate.</p>
 
-  <!-- STEP 2: OTP Verification -->
-  <form id="otpForm" style="display:none;">
-    <input type="number" id="otp" placeholder="Enter OTP" required>
-    <button type="submit">Verify OTP</button>
-  </form>
+    <div class="badges">
+      <span class="badge">📚 10+ Courses</span>
+      <span class="badge">⚡ Free Access</span>
+      <span class="badge">🏆 Certificates</span>
+    </div>
+  </div>
 
-  <p id="message"></p>
+  <!-- ═══ RIGHT PANEL ═══ -->
+  <div class="right">
+
+    <div class="brand">
+      <div class="brand-logo">EL</div>
+      <span class="brand-name">Engineers Learning</span>
+    </div>
+
+    <!-- step bar -->
+    <div class="steps">
+      <div class="step active" id="step1bar"></div>
+      <div class="step" id="step2bar"></div>
+    </div>
+
+    <h1 id="formTitle">Create your account</h1>
+    <p class="tagline">"Empowering learners to build tomorrow's innovations."</p>
+
+    <!-- ── STEP 1: Signup Form ── -->
+    <form id="signupForm">
+      <div class="field">
+        <label>Full Name</label>
+        <input type="text" name="username" placeholder="Enter your name" required>
+      </div>
+      <div class="field">
+        <label>Email Address</label>
+        <input type="email" name="email" id="email" placeholder="Enter your email" required>
+      </div>
+      <div class="field">
+        <label>Password</label>
+        <input type="password" name="password" placeholder="Create a password" required>
+      </div>
+
+      <button type="submit" class="btn-primary">Send OTP</button>
+    </form>
+
+    <!-- ── STEP 2: OTP Verification ── -->
+    <form id="otpForm" style="display:none;">
+      <p class="otp-note">OTP sent to <span id="emailDisplay"></span></p>
+      <div class="field">
+        <label>One-Time Password</label>
+        <input type="number" id="otp" placeholder="Enter OTP" required>
+      </div>
+      <button type="submit" class="btn-primary">Verify OTP</button>
+    </form>
+
+    <p id="message"></p>
+
+    <div class="divider">or</div>
+    <button class="btn-secondary" onclick="window.location.href='login.html'">Already have an account? Login</button>
+
+    <p class="back-link"><a href="index.html">← Back to Home</a></p>
+  </div>
+
 </div>
 
 <script>
   const signupForm = document.getElementById("signupForm");
-  const otpForm = document.getElementById("otpForm");
-  const message = document.getElementById("message");
+  const otpForm    = document.getElementById("otpForm");
+  const message    = document.getElementById("message");
+  const step2bar   = document.getElementById("step2bar");
+  const formTitle  = document.getElementById("formTitle");
 
   let savedEmail = "";
 
@@ -97,12 +368,15 @@
         body: new URLSearchParams(formData)
       });
 
-      const data = await res.json(); // ✅ FIXED
+      const data = await res.json();
       message.innerText = data.message;
 
       if (data.success) {
         signupForm.style.display = "none";
-        otpForm.style.display = "block";
+        otpForm.style.display    = "block";
+        step2bar.classList.add("active");
+        formTitle.innerText = "Verify your email";
+        document.getElementById("emailDisplay").innerText = savedEmail;
       }
 
     } catch (err) {
@@ -119,23 +393,15 @@
     try {
       const res = await fetch("/verify-otp", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          email: savedEmail,
-          otp: otp
-        })
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: savedEmail, otp: otp })
       });
 
-      const data = await res.json(); // ✅ FIXED
+      const data = await res.json();
 
       if (data.success) {
         message.innerText = "✅ Signup Successful! Redirecting...";
-
-        setTimeout(() => {
-          window.location.href = "login.html"; // ✅ REDIRECT WORKS NOW
-        }, 1500);
+        setTimeout(() => { window.location.href = "login.html"; }, 1500);
       } else {
         message.innerText = "❌ " + data.message;
       }
